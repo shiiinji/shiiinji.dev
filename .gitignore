@@ -1,0 +1,8 @@
+.env
+.env.build
+.env.local
+.idea
+.next
+.vercel
+node_modules
+yarn-error.log

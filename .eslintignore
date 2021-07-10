@@ -1,0 +1,9 @@
+package.json
+node_modules
+yarn.lock
+out
+public
+next.config.js
+services/graphcms
+.eslintrc.js
+.env.local

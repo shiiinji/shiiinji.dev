@@ -36,7 +36,8 @@
       "@libs/*": ["libs/*"],
       "@reducers/*": ["reducers/*"],
       "@services/*": ["services/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@utils": ["utils/*"]
     },
     "typeRoots": [
       "./node_modules/@types",

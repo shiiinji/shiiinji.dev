@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FirebaseAppProvider, useAnalytics } from 'reactfire'
 import { ApolloProvider } from '@apollo/client'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
+import { AppDrawer } from '@components/AppDrawer'
 import { useApollo } from '@graphql/apolloClient'
 import { isBrowserDetect } from '@libs/isBrowserDetect'
 import { defaultTheme } from '@styles/theme'
@@ -48,11 +50,20 @@ export default function MyApp({
 
   return (
     <>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
       <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
         <ThemeProvider theme={defaultTheme}>
           <ApolloProvider client={apolloClient}>
             <CssBaseline />
-            <Component {...pageProps} />
+            <AppDrawer>
+              <Component {...pageProps} />
+            </AppDrawer>
           </ApolloProvider>
         </ThemeProvider>
         <React.Suspense fallback={<div />}>

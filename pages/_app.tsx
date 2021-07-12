@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FirebaseAppProvider, useAnalytics } from 'reactfire'
 import { ApolloProvider } from '@apollo/client'
-import { CssBaseline } from '@material-ui/core'
+import { Container, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import { AppDrawer } from '@components/AppDrawer'
 import { BottomNavigation } from '@components/BottomNavigation'
@@ -63,7 +63,9 @@ export default function MyApp({
           <ApolloProvider client={apolloClient}>
             <CssBaseline />
             <AppDrawer>
-              <Component {...pageProps} />
+              <Container fixed={true} maxWidth="md">
+                <Component {...pageProps} />
+              </Container>
               <BottomNavigation />
             </AppDrawer>
           </ApolloProvider>

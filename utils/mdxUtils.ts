@@ -3,6 +3,6 @@ import path from 'path'
 
 export const POSTS_PATH = path.join(process.cwd(), 'posts')
 
-export const postFilepaths = fs
+export const postFilePaths = fs
   .readdirSync(POSTS_PATH)
-  .filter((path) => /\.mdx?$/.test(path))
+  .filter((fiePath) => /\.mdx?$/.test(fiePath))

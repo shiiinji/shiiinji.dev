@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
-import { Description, Face, GitHub, Storefront } from '@material-ui/icons'
+import { Face, GitHub, Storefront } from '@material-ui/icons'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
 type Props = {
@@ -29,11 +29,6 @@ export function Navigation(props: Props) {
       value={router.pathname}
     >
       <BottomNavigationAction icon={<Face />} label="About" value="/about" />
-      <BottomNavigationAction
-        icon={<Description />}
-        label="ブログ"
-        value="/blogs"
-      />
       <BottomNavigationAction
         icon={<Storefront />}
         label="ショップ"

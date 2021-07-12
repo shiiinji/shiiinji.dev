@@ -23,10 +23,10 @@ export const AppDrawer: React.FC = (props) => {
                   <a className={classes.titleLink}>
                     <Typography
                       className={classes.title}
-                      color="primary"
-                      variant="subtitle1"
+                      color="textPrimary"
+                      variant="h6"
                     >
-                      shiiinji-dev
+                      shiiinji.dev
                     </Typography>
                   </a>
                 </Link>
@@ -56,12 +56,14 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     content: {
-      height: 'calc(100% - 56px)',
+      backgroundColor: theme.palette.background.default,
+      height: 'calc(100vh - 56px)',
       marginTop: 56,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
+        backgroundColor: theme.palette.background.default,
         width: '100%',
-        height: 'calc(100% - 64px)',
+        height: 'calc(100vh - 64px)',
         marginTop: 64,
       },
     },
@@ -73,5 +75,3 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
-
-export default AppDrawer

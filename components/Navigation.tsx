@@ -22,9 +22,7 @@ export function Navigation(props: Props) {
   return (
     <BottomNavigation
       className={
-        props.position === 'top'
-          ? classes.topNavigation
-          : classes.bottomNavigation
+        props.position === 'top' ? undefined : classes.bottomNavigation
       }
       onChange={handleChange}
       showLabels={true}
@@ -52,15 +50,11 @@ export function Navigation(props: Props) {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    topNavigation: {
-      backgroundColor: 'white',
-    },
     bottomNavigation: {
       flexGrow: 1,
       width: '100vw',
       position: 'fixed',
       bottom: 0,
-      backgroundColor: '#fafafa',
       borderTop: '1px solid #9e9e9e',
       borderBottom: '1px solid #9e9e9e',
     },

@@ -3,6 +3,7 @@ import { cyan, deepPurple, red } from '@material-ui/core/colors'
 
 export const defaultTheme = createTheme({
   palette: {
+    type: 'dark',
     primary: {
       main: deepPurple[400],
     },
@@ -11,9 +12,6 @@ export const defaultTheme = createTheme({
     },
     error: {
       main: red.A400,
-    },
-    background: {
-      default: '#f8f9fa',
     },
   },
 })

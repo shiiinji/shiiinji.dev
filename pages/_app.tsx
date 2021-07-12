@@ -7,6 +7,7 @@ import { ApolloProvider } from '@apollo/client'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import { AppDrawer } from '@components/AppDrawer'
+import { Navigation } from '@components/Navigation'
 import { useApollo } from '@graphql/apolloClient'
 import { isBrowserDetect } from '@libs/isBrowserDetect'
 import { defaultTheme } from '@styles/theme'
@@ -63,6 +64,7 @@ export default function MyApp({
             <CssBaseline />
             <AppDrawer>
               <Component {...pageProps} />
+              <Navigation />
             </AppDrawer>
           </ApolloProvider>
         </ThemeProvider>

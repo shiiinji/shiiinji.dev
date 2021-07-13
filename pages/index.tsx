@@ -39,6 +39,10 @@ const useStyles = makeStyles(() =>
 export default function IndexPage(props: Props) {
   const classes = useStyles()
 
+  const dateDescendingOrderPosts = Array.from(props.posts).sort(
+    (a, b) => dayjs(b.data.date).date() - dayjs(a.data.date).date(),
+  )
+
   return (
     <>
       <Box pt={3} pb={3}>
@@ -63,7 +67,7 @@ export default function IndexPage(props: Props) {
         </Link>
       </Box>
       <List>
-        {props.posts.map((post) => (
+        {dateDescendingOrderPosts.map((post) => (
           <ListItem key={post.data.id} disableGutters={true}>
             <Link href={`/blog/${post.filePath.replace(/\.mdx?$/, '')}`}>
               <ListItemText

@@ -63,7 +63,7 @@ export default function MyApp({
           <ApolloProvider client={apolloClient}>
             <CssBaseline />
             <AppDrawer>
-              <Container fixed={true} maxWidth="md">
+              <Container maxWidth="sm">
                 <Component {...pageProps} />
               </Container>
               <BottomNavigation />

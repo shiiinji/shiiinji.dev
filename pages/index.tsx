@@ -11,18 +11,12 @@ import {
   Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Modify } from '@services/types'
+import { BlogMetaData, Modify } from '@services/types'
 import { postFilePaths, POSTS_PATH } from '@utils/mdxUtils'
-
-type Data = {
-  title: string
-  date: string
-  id: string
-}
 
 type Posts = Modify<
   Pick<matter.GrayMatterFile<string>, 'content' | 'data'>,
-  { data: Data }
+  { data: BlogMetaData }
 > & {
   filePath: string
 }
@@ -31,13 +25,26 @@ type Props = {
   posts: Posts[]
 }
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    link: {
+      cursor: 'pointer',
+    },
+    title: {
+      fontWeight: 900,
+    },
+  }),
+)
+
 export default function IndexPage(props: Props) {
   const classes = useStyles()
 
   return (
     <>
       <Box pt={3} pb={3}>
-        <Typography variant="h4">Hello shinji-portfolio 👋</Typography>
+        <Typography className={classes.title} variant="h4">
+          Hello shinji-portfolio 👋
+        </Typography>
       </Box>
       <List>
         {props.posts.map((post) => (
@@ -46,7 +53,9 @@ export default function IndexPage(props: Props) {
               <ListItemText
                 className={classes.link}
                 primary={
-                  <Typography variant="h5">{post.data.title}</Typography>
+                  <Typography className={classes.title} variant="h4">
+                    {post.data.title}
+                  </Typography>
                 }
                 secondary={
                   <Typography variant="caption">
@@ -61,14 +70,6 @@ export default function IndexPage(props: Props) {
     </>
   )
 }
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    link: {
-      cursor: 'pointer',
-    },
-  }),
-)
 
 export function getStaticProps() {
   const posts = postFilePaths.map((filePath) => {

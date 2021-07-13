@@ -42,9 +42,25 @@ export default function IndexPage(props: Props) {
   return (
     <>
       <Box pt={3} pb={3}>
-        <Typography className={classes.title} variant="h4">
-          Hello shinji-portfolio 👋
-        </Typography>
+        <Link href="/about">
+          <div className={classes.link}>
+            <Typography className={classes.title} variant="h4">
+              Hello shinji-portfolio 👋
+            </Typography>
+            <Typography variant="subtitle1">
+              shiiinjiです。このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
+              Commerceなどの実験場とする予定です。
+            </Typography>
+          </div>
+        </Link>
+        <Typography variant="subtitle1">サイトのコード →</Typography>
+        <Link href="https://github.com/shiiinji/shinji-portfolio">
+          <a target="_blank" rel="noopener noreferrer">
+            <Typography color="primary">
+              https://github.com/shiiinji/shinji-portfolio
+            </Typography>
+          </a>
+        </Link>
       </Box>
       <List>
         {props.posts.map((post) => (

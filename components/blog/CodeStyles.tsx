@@ -7,6 +7,7 @@ export const Line = styled.span`
 export const Pre = styled.pre`
   padding: 20px;
   text-align: left;
+  overflow: scroll;
 
   & .token-line {
     height: 1.5em;

@@ -6,7 +6,7 @@ service cloud.firestore {
                     && incomingData().keys().hasOnly(['blogId', 'commentId', 'commentRef', 'userId', 'userRef', 'author', 'content', 'createdAt', 'updatedAt'])
                     && validateRef(incomingData().commentRef)
                     && validateRef(incomingData().userRef)
-                    && validateString(incomingData().blogId, 10, 40)
+                    && validateString(incomingData().blogId, 1, 100)
                     && validateString(incomingData().commentId, 10, 40)
                     && validateString(incomingData().userId, 10, 40)
                     && validateString(incomingData().author, 1, 100)

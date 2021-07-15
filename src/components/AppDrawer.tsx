@@ -6,6 +6,7 @@ import { Navigation } from './Navigation'
 
 export const AppDrawer: React.FC = (props) => {
   const classes = useStyles()
+  console.log('d')
 
   return (
     <div className={classes.appFrame}>

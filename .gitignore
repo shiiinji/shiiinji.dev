@@ -1,8 +1,8 @@
-.env
+src/.env
 .env.build
 .env.local
 .idea
-.next
+src/.next
 .vercel
 node_modules
 yarn-error.log

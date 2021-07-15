@@ -4,7 +4,7 @@ import { AuthCheck } from 'reactfire'
 import { Box, Paper, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { PromptLogin } from '@components/PromptLogin'
-import { Comment } from './Comment'
+import { CommentEditor } from './CommentEditor'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,7 +35,7 @@ export function CommentsContainer() {
               </Box>
             }
           >
-            <Comment />
+            <CommentEditor />
           </AuthCheck>
         </Suspense>
       </Box>

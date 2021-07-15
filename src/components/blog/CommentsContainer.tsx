@@ -4,6 +4,7 @@ import { AuthCheck } from 'reactfire'
 import { Box, Paper, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { PromptLogin } from '@components/PromptLogin'
+import { SkeletonCommentView } from '@components/Skeleton/SkeletonCommentView'
 import { CommentEditor } from './CommentEditor'
 
 const useStyles = makeStyles(() =>
@@ -24,15 +25,17 @@ export function CommentsContainer() {
         <Typography className={classes.title} variant="h6">
           コメント
         </Typography>
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<SkeletonCommentView />}>
           <AuthCheck
             fallback={
-              <Box pt={2}>
-                <PromptLogin
-                  redirectUrl={router.asPath}
-                  promptText="ログインしてコメントする"
-                />
-              </Box>
+              <Suspense fallback={<SkeletonCommentView />}>
+                <Box pt={2}>
+                  <PromptLogin
+                    redirectUrl={router.asPath}
+                    promptText="ログインしてコメントする"
+                  />
+                </Box>
+              </Suspense>
             }
           >
             <CommentEditor />

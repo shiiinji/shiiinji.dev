@@ -11,6 +11,7 @@
     "logs": "firebase functions:log",
     "config": "firebase functions:config:set app=\"$(cat .config.json)\"",
     "get": "firebase functions:config:get",
+    "use": "firebase use shinji-portfolio",
     "remoteconfig": "firebase functions:config:get > ./.runtimeconfig.json",
     "remoteindexes": "firebase firestore:indexes > ../firestore.indexes.json",
     "prettier": "prettier --write src/*"

@@ -3,7 +3,9 @@ import { forEach } from 'lodash'
 
 admin.initializeApp()
 
-const functionMap = {}
+const functionMap = {
+  create_user_firestore: './triggers/create-user-firestore',
+}
 
 const loadFunctions = (fnMap: typeof functionMap) => {
   forEach(fnMap, (path, functionName) => {

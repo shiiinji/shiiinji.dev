@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { FirebaseAppProvider, useAnalytics } from 'reactfire'
+import { FirebaseAppProvider, useAnalytics, useUser } from 'reactfire'
 import { ApolloProvider } from '@apollo/client'
 import { Container, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
@@ -25,9 +25,13 @@ import firebaseConfig from '../firebase/firebaseConfig'
 function MyPageViewLogger() {
   const analytics = useAnalytics()
   const router = useRouter()
+  const { data: user } = useUser(undefined, { suspense: true })
 
   useEffect(() => {
     if (router.asPath !== null && router.asPath !== undefined) {
+      if (user) {
+        analytics.setUserId(user.uid, { global: true })
+      }
       analytics.logEvent('page_view', { page_path: router.asPath })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

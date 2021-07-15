@@ -7,6 +7,7 @@ import path from 'path'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { CodeBlock } from '@components/blog/CodeBlock'
+import { CommentsContainer } from '@components/blog/CommentsContainer'
 import { A, Div, H1, H2, H3, H4, H5, H6, P } from '@components/blog/HtmlStyles'
 import { postFilePaths, POSTS_PATH } from '@utils/mdxUtils'
 import { BlogMetaData } from '@services/types'
@@ -56,6 +57,9 @@ export default function BlogPage(props: Props) {
       </Box>
       <Box pt={3}>
         <MDXRemote {...props.source} components={components}></MDXRemote>
+      </Box>
+      <Box pt={5} pb={5}>
+        <CommentsContainer />
       </Box>
     </Box>
   )

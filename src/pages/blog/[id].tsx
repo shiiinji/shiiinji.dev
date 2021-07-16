@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import matter from 'gray-matter'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeo } from 'next-seo'
 import path from 'path'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
@@ -46,22 +47,38 @@ export default function BlogPage(props: Props) {
   const classes = useStyles()
 
   return (
-    <Box pt={3}>
+    <>
+      <NextSeo
+        title={props.source.scope?.title}
+        description={props.source.scope?.description}
+        canonical={`https://shiiinji-dev.vercel.app/blog/${props.source.scope?.id}`}
+        openGraph={{
+          url: `https://shiiinji-dev.vercel.app/blog/${props.source.scope?.id}`,
+          title: props.source.scope?.title,
+          description: props.source.scope?.description,
+        }}
+      />
       <Box pt={3}>
-        <Typography className={classes.title} variant="h4">
-          {props.source.scope?.title}
-        </Typography>
-        <Typography variant="caption">
-          {dayjs(props.source.scope?.date).format('YYYY/MM/DD')}
-        </Typography>
+        <Box pt={3}>
+          <Typography
+            className={classes.title}
+            variant="h4"
+            variantMapping={{ h4: 'h1' }}
+          >
+            {props.source.scope?.title}
+          </Typography>
+          <Typography variant="caption">
+            {dayjs(props.source.scope?.date).format('YYYY/MM/DD')}
+          </Typography>
+        </Box>
+        <Box pt={3}>
+          <MDXRemote {...props.source} components={components}></MDXRemote>
+        </Box>
+        <Box pt={5} pb={5}>
+          <CommentsContainer />
+        </Box>
       </Box>
-      <Box pt={3}>
-        <MDXRemote {...props.source} components={components}></MDXRemote>
-      </Box>
-      <Box pt={5} pb={5}>
-        <CommentsContainer />
-      </Box>
-    </Box>
+    </>
   )
 }
 

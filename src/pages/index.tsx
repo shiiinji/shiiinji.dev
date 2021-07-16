@@ -2,6 +2,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 import matter from 'gray-matter'
 import Link from 'next/link'
+import { NextSeo } from 'next-seo'
 import path from 'path'
 import {
   Box,
@@ -45,10 +46,26 @@ export default function IndexPage(props: Props) {
 
   return (
     <>
+      <NextSeo
+        title="shiiinjiののブログ&ポートフォリオサイトです。"
+        description="このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
+              Commerceなどの実験場とする予定です。"
+        canonical="https://shiiinji-dev.vercel.app/"
+        openGraph={{
+          url: 'https://shiiinji-dev.vercel.app/',
+          title: 'shiiinjiののブログ&ポートフォリオサイトです。',
+          description:
+            'このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js Commerceなどの実験場とする予定です。',
+        }}
+      />
       <Box pt={3} pb={3}>
         <Link href="/about">
           <div className={classes.link}>
-            <Typography className={classes.title} variant="h4">
+            <Typography
+              className={classes.title}
+              variant="h4"
+              variantMapping={{ h4: 'h1' }}
+            >
               Hello shinji-portfolio 👋
             </Typography>
             <Typography variant="subtitle1">

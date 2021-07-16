@@ -1,4 +1,5 @@
 import React from 'react'
+import Error from 'next/error'
 import { Box, Typography } from '@material-ui/core/'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import {
@@ -21,11 +22,11 @@ export function StaticPage(props: Props) {
   })
 
   if (error) {
-    return <div>404 ページが存在しません</div>
+    return <Error statusCode={404} />
   }
 
   if (!data || !data.staticPage) {
-    return <div>404 ページが存在しません</div>
+    return <Error statusCode={500} />
   }
 
   return (

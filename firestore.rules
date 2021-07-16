@@ -14,14 +14,18 @@ service cloud.firestore {
                     && validateTimestamp(incomingData().createdAt)
                     && validateTimestamp(incomingData().updatedAt)
     }
-
+    
+    match /{path=**}/comments/{comment_id} {
+      allow read: if true;
+    }
+    
     match /{document=**} {
       allow read, write: if false;
     }
-
+    
     // --------------------
     // helper functions
-
+    
     function isAuthenticated() {
       return request.auth != null
     }
@@ -30,22 +34,22 @@ service cloud.firestore {
       return isAuthenticated()
         && request.auth.uid == uid;
     }
-
+    
     function incomingData() {
       return request.resource.data;
     }
-
+        
     function validateRef(fieldRef) {
       return fieldRef is path;
     }
-
+    
     function validateString(fieldText, min, max) {
       return fieldText is string && min <= fieldText.size() && fieldText.size() <= max;
     }
-
+    
     function validateTimestamp(fieldTimestamp) {
       return fieldTimestamp is timestamp
     }
-
+    
   }
 }

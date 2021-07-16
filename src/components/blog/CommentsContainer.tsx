@@ -6,6 +6,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { PromptLogin } from '@components/PromptLogin'
 import { SkeletonCommentView } from '@components/Skeleton/SkeletonCommentView'
 import { CommentEditor } from './CommentEditor'
+import { Comments } from './Comments'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +26,7 @@ export function CommentsContainer() {
         <Typography className={classes.title} variant="h6">
           コメント
         </Typography>
-        <Suspense fallback={<SkeletonCommentView />}>
+        <Suspense fallback={<div />}>
           <AuthCheck
             fallback={
               <Suspense fallback={<SkeletonCommentView />}>
@@ -38,7 +39,12 @@ export function CommentsContainer() {
               </Suspense>
             }
           >
-            <CommentEditor />
+            <Suspense fallback={<SkeletonCommentView />}>
+              <Comments />
+            </Suspense>
+            <Suspense fallback={<SkeletonCommentView />}>
+              <CommentEditor />
+            </Suspense>
           </AuthCheck>
         </Suspense>
       </Box>

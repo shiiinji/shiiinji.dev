@@ -1,0 +1,14 @@
+fragment StaticPage on StaticPage {
+  id
+  title
+  content {
+    html
+  }
+  staticPageType
+}
+
+query getStaticPage($staticPageType: StaticPageType!) {
+  staticPage(where: { staticPageType: $staticPageType }) {
+    ...StaticPage
+  }
+}

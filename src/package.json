@@ -15,6 +15,7 @@
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'; stylelint './**/*.{css,jsx,tsx}';",
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
+    "codegen-graphcms": "graphql-codegen --config graphcms-codegen.yml",
     "security-check": "nsp check"
   },
   "repository": {
@@ -49,6 +50,10 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.7",
+    "@graphql-codegen/typescript": "^1.23.0",
+    "@graphql-codegen/typescript-operations": "^1.18.4",
+    "@graphql-codegen/typescript-react-apollo": "^2.3.1",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/styled-components": "^4.1.19",
     "@types/stylelint": "^9.10.1",

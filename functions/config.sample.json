@@ -2,5 +2,14 @@
   "locale": {
     "region": "asia-northeast1",
     "timezone": "Asia/Tokyo"
+  },
+  "firebase": {
+    "storage": {
+      "bucket": ""
+    }
+  },
+  "bigquery": {
+    "app": "",
+    "analytics": ""
   }
 }

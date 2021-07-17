@@ -4,6 +4,7 @@ import { forEach } from 'lodash'
 admin.initializeApp()
 
 const functionMap = {
+  bigquery_scheduled_register: './pubsub/bigquery/register',
   create_user_firestore: './triggers/create-user-firestore',
 }
 

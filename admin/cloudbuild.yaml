@@ -8,9 +8,11 @@ steps:
         'gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA',
         '.',
       ]
+    dir: 'admin'
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA']
+    dir: 'admin'
   # Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud

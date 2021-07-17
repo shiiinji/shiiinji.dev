@@ -31,7 +31,7 @@ with
     
 select
   date_series.date,
-  ifnull(users_summary.registration_number, 0) AS registration_number
+  ifnull(users_summary.registration_number, 0) as registration_number
 from
   date_series
 left outer join users_summary

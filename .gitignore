@@ -1,8 +1,12 @@
-src/.env
+# env file
+.env
 .env.build
 .env.local
+
+# next build files
+.next
+
+# others
 .idea
-src/.next
-.vercel
 node_modules
 yarn-error.log

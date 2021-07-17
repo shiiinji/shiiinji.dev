@@ -1,0 +1,31 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA',
+        '.',
+      ]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        'shiiinji-dev-admin',
+        '--image',
+        'gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA',
+        '--region',
+        'asia-northeast1',
+        '--platform',
+        'managed',
+      ]
+images:
+  - gcr.io/shinji-portfolio/shiiinji-dev-admin:$COMMIT_SHA
+timeout: 3600s

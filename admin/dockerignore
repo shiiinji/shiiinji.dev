@@ -1,0 +1,14 @@
+# blacklist everything
+/*
+
+# whitelist
+#
+!/Dockerfile
+!/package.json
+!/package-lock.json
+!/yarn.json
+!/next.config.js
+!/components/
+!/helpers/
+!/pages/
+!/styles/

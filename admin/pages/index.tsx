@@ -1,10 +1,10 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { AppDrawer, Route } from '@components/AppDrawer'
 
 export default function IndexPage() {
   return (
-    <>
-      <Typography>Hello World, Admin Page</Typography>
-    </>
+    <AppDrawer route={Route.dashboard} title="ダッシュボード">
+      <></>
+    </AppDrawer>
   )
 }

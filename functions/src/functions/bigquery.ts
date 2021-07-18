@@ -1,8 +1,15 @@
 import * as f from 'firebase-functions'
+import bigquery from '@google-cloud/bigquery/build/src/types'
 import { queryToBigquery } from '../utils/query-to-bigquery'
 import { uploadFileToFirebaseStorage } from '../utils/upload-file-to-firebase-storage'
 
-export const functions = (query: string, fileName: string, path: string) =>
+export const functions = <T>(
+  query: string,
+  fileName: string,
+  path: string,
+  outputCsv: boolean,
+  insertRecordToFirestore?: (rows: T[]) => void,
+) =>
   f
     .region(f.config().app.locale.region)
     .runWith({
@@ -12,7 +19,7 @@ export const functions = (query: string, fileName: string, path: string) =>
     .pubsub.schedule('every day 13:00')
     .timeZone(f.config().app.locale.timezone)
     .onRun(async () => {
-      const [rows] = await queryToBigquery(query)
+      const [rows]: [T[], bigquery.IJob] = await queryToBigquery(query)
 
       if (!Array.isArray(rows)) {
         f.logger.log('queryが正しくありません')
@@ -26,6 +33,12 @@ export const functions = (query: string, fileName: string, path: string) =>
         return
       }
 
-      const headers = Object.keys(rows[0])
-      await uploadFileToFirebaseStorage(headers, rows, fileName, path)
+      if (insertRecordToFirestore) {
+        await insertRecordToFirestore(rows)
+      }
+
+      if (outputCsv) {
+        const headers = Object.keys(rows[0])
+        await uploadFileToFirebaseStorage(headers, rows, fileName, path)
+      }
     })

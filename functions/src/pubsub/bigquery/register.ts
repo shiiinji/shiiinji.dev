@@ -1,5 +1,7 @@
 import * as f from 'firebase-functions'
 import { functions } from '../../functions/bigquery'
+import { createAnalyticsRegister } from '../../firestore-admin/analytics/register/create'
+import { Row } from '../../services/models/analytics/register'
 
 const fileName = 'register.csv'
 const path = 'analytics'
@@ -40,4 +42,16 @@ order by
   date asc
 `
 
-module.exports = functions(query, fileName, path)
+function insertRecordToFirestore(rows: Row[]) {
+  rows.forEach((row) => {
+    createAnalyticsRegister(row)
+  })
+}
+
+module.exports = functions<Row>(
+  query,
+  fileName,
+  path,
+  true,
+  insertRecordToFirestore,
+)

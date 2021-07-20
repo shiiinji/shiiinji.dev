@@ -115,6 +115,7 @@ export async function getStaticProps(props: { params: { id: string } }) {
 
   return {
     props: { source: mdxSource },
+    revalidate: 60,
   }
 }
 
@@ -138,6 +139,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }

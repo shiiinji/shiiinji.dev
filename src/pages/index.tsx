@@ -134,5 +134,5 @@ export async function getStaticProps() {
     })
     .filter((post: Post) => post.content && post.data)
 
-  return { props: { posts } }
+  return { props: { posts }, revalidate: 60 }
 }

@@ -1,24 +1,41 @@
 import { useMemo } from 'react'
 import { ApolloClient } from '@apollo/client/core'
 import { InMemoryCache } from '@apollo/client/cache'
-import { ApolloLink, HttpLink } from '@apollo/client'
+import { createHttpLink, ApolloLink } from '@apollo/client'
+import { MultiAPILink } from '@habx/apollo-multi-endpoint-link'
 
 let apolloClient: ApolloClient<any> | null = null
 
-function createApolloClient() {
-  const httpLink: ApolloLink = new HttpLink({
-    uri: String(process.env.NEXT_PUBLIC_GRAPH_CMS_PATH), // Server URL (must be absolute)
-    headers: {
-      authorization: `Bearer ${process.env.NEXT_PUBLIC_APOLLO_QUERY_TOKEN}`,
-    },
-  })
-
-  return new ApolloClient({
+const createApolloClient = () =>
+  new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: httpLink,
+    link: ApolloLink.from([
+      new MultiAPILink({
+        endpoints: {
+          graphcms: String(process.env.NEXT_PUBLIC_GRAPH_CMS_PATH),
+          github: String(process.env.NEXT_PUBLIC_GITHUB_API_PATH),
+        },
+        getContext: (endpoints) => {
+          if (endpoints === 'github') {
+            return {
+              headers: {
+                authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+              },
+            }
+          }
+
+          return {
+            headers: {
+              authorization: `Bearer ${process.env.NEXT_PUBLIC_APOLLO_QUERY_TOKEN}`,
+            },
+          }
+        },
+        httpSuffix: '',
+        createHttpLink: () => createHttpLink(),
+      }),
+    ]),
     cache: new InMemoryCache(),
   })
-}
 
 export function initializeApollo(initialState: unknown = null) {
   // eslint-disable-next-line

@@ -7,7 +7,7 @@ fragment StaticPage on StaticPage {
   staticPageType
 }
 
-query getStaticPage($staticPageType: StaticPageType!) {
+query getStaticPage($staticPageType: StaticPageType!) @api(name: graphcms) {
   staticPage(where: { staticPageType: $staticPageType }) {
     ...StaticPage
   }

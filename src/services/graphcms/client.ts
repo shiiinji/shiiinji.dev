@@ -8401,7 +8401,7 @@ export const StaticPageFragmentDoc = gql`
 }
     `;
 export const GetStaticPageDocument = gql`
-    query getStaticPage($staticPageType: StaticPageType!) {
+    query getStaticPage($staticPageType: StaticPageType!) @api(name: graphcms) {
   staticPage(where: {staticPageType: $staticPageType}) {
     ...StaticPage
   }

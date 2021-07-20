@@ -1,0 +1,17 @@
+# github-codegen.yml
+# TODO move $YOUR_GITHUB_AUTHORIZATION to env file, refer https://www.graphql-code-generator.com/docs/getting-started/codegen-config
+schema:
+  - https://api.github.com/graphql:
+      headers:
+        Authorization: Bearer $YOUR_GITHUB_AUTHORIZATION
+documents: ./graphql/github/*.graphql
+overwrite: true
+generates:
+  ./services/github/client.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      reactApolloVersion: 3

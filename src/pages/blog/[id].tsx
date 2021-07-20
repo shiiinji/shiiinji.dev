@@ -4,13 +4,17 @@ import matter from 'gray-matter'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
-import path from 'path'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { CodeBlock } from '@components/blog/CodeBlock'
 import { CommentsContainer } from '@components/blog/CommentsContainer'
 import { A, Div, H1, H2, H3, H4, H5, H6, P } from '@components/blog/HtmlStyles'
-import { postFilePaths, POSTS_PATH } from '@utils/mdxUtils'
+import { initializeApollo } from '@graphql/apolloClient'
+import {
+  GetRepositoryObjectDocument,
+  GetRepositoryObjectNamesDocument,
+  TreeEntry,
+} from '@services/github/client'
 import { BlogMetaData } from '@services/types'
 
 type Props = {
@@ -83,9 +87,24 @@ export default function BlogPage(props: Props) {
 }
 
 export async function getStaticProps(props: { params: { id: string } }) {
-  const grayMatterFile = matter(
-    matter.read(path.join(POSTS_PATH, `${props.params.id}.mdx`)),
-  )
+  const apolloClient = initializeApollo()
+
+  const {
+    data: { repository },
+  } = await apolloClient.query({
+    query: GetRepositoryObjectDocument,
+    variables: {
+      owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
+      name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
+      expression: String(
+        `${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${props.params.id}.mdx`,
+      ),
+    },
+  })
+
+  console.log(`${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${props.params.id}`)
+
+  const grayMatterFile = matter(repository?.content?.text)
   const mdxSource = await serialize(grayMatterFile.content, {
     mdxOptions: {
       remarkPlugins: [],
@@ -100,9 +119,22 @@ export async function getStaticProps(props: { params: { id: string } }) {
 }
 
 export async function getStaticPaths() {
-  const paths = postFilePaths
-    .map((filePath) => filePath.replace(/\.mdx?$/, ''))
-    .map((id) => ({ params: { id } }))
+  const apolloClient = initializeApollo()
+
+  const {
+    data: { repository },
+  } = await apolloClient.query({
+    query: GetRepositoryObjectNamesDocument,
+    variables: {
+      owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
+      name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
+      expression: String(`${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}`),
+    },
+  })
+
+  const paths = repository.content?.entries
+    .map((object: Pick<TreeEntry, 'name'>) => object.name)
+    .map((name: string) => ({ params: { id: name.replace(/\.mdx?$/, '') } }))
 
   return {
     paths,

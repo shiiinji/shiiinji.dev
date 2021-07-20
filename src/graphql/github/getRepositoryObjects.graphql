@@ -1,0 +1,19 @@
+query getRepositoryObjects(
+  $owner: String!
+  $name: String!
+  $expression: String!
+) @api(name: github) {
+  repository(owner: $owner, name: $name) {
+    content: object(expression: $expression) {
+      ... on Tree {
+        entries {
+          object {
+            ... on Blob {
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+}

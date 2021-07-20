@@ -15,6 +15,7 @@
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'; stylelint './**/*.{css,jsx,tsx}';",
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
+    "codegen-github": "graphql-codegen --config github-codegen.yml",
     "codegen-graphcms": "graphql-codegen --config graphcms-codegen.yml",
     "security-check": "nsp check"
   },

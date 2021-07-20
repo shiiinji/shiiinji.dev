@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import matter from 'gray-matter'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
-import path from 'path'
 import {
   Box,
   List,
@@ -13,17 +12,16 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { BlogMetaData, Modify } from '@services/types'
-import { postFilePaths, POSTS_PATH } from '@utils/mdxUtils'
+import { initializeApollo } from '@graphql/apolloClient'
+import { Blob, GetRepositoryObjectsDocument } from '@services/github/client'
 
-type Posts = Modify<
+type Post = Modify<
   Pick<matter.GrayMatterFile<string>, 'content' | 'data'>,
   { data: BlogMetaData }
-> & {
-  filePath: string
-}
+>
 
 type Props = {
-  posts: Posts[]
+  posts: Post[]
 }
 
 const useStyles = makeStyles(() =>
@@ -86,7 +84,7 @@ export default function IndexPage(props: Props) {
       <List>
         {dateDescendingOrderPosts.map((post) => (
           <ListItem key={post.data.id} disableGutters={true}>
-            <Link href={`/blog/${post.filePath.replace(/\.mdx?$/, '')}`}>
+            <Link href={`/blog/${post.data.id}`}>
               <ListItemText
                 className={classes.link}
                 primary={
@@ -108,16 +106,33 @@ export default function IndexPage(props: Props) {
   )
 }
 
-export function getStaticProps() {
-  const posts = postFilePaths.map((filePath) => {
-    const grayMatterFile = matter(matter.read(path.join(POSTS_PATH, filePath)))
+export async function getStaticProps() {
+  const apolloClient = initializeApollo()
 
-    return {
-      filePath,
-      content: grayMatterFile.content,
-      data: grayMatterFile.data,
-    }
+  const {
+    data: { repository },
+  } = await apolloClient.query({
+    query: GetRepositoryObjectsDocument,
+    variables: {
+      owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
+      name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
+      expression: String(process.env.NEXT_PUBLIC_GITHUB_EXPRESSION),
+    },
   })
+
+  const posts: Post[] = repository.content?.entries
+    ?.map(({ object }: { object: Pick<Blob, 'text'> }) => {
+      if (!object?.text) {
+        return []
+      }
+      const grayMatterFile = matter(object.text)
+
+      return {
+        content: grayMatterFile.content,
+        data: grayMatterFile.data,
+      }
+    })
+    .filter((post: Post) => post.content && post.data)
 
   return { props: { posts } }
 }

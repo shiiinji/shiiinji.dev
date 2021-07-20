@@ -4,6 +4,7 @@ yarn.lock
 out
 public
 next.config.js
+services/github
 services/graphcms
 .eslintrc.js
 .env.local

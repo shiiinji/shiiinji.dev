@@ -26,7 +26,10 @@ export function CommentsContainer() {
         <Typography className={classes.title} variant="h6">
           コメント
         </Typography>
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<SkeletonCommentView />}>
+          <Comments />
+        </Suspense>
+        <Suspense fallback={<SkeletonCommentView />}>
           <AuthCheck
             fallback={
               <Suspense fallback={<SkeletonCommentView />}>
@@ -39,9 +42,6 @@ export function CommentsContainer() {
               </Suspense>
             }
           >
-            <Suspense fallback={<SkeletonCommentView />}>
-              <Comments />
-            </Suspense>
             <Suspense fallback={<SkeletonCommentView />}>
               <CommentEditor />
             </Suspense>

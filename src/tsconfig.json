@@ -33,7 +33,6 @@
       "@contexts/*": ["contexts/*"],
       "@graphql/*": ["graphql/*"],
       "@hooks/*": ["hooks/*"],
-      "@libs/*": ["libs/*"],
       "@reducers/*": ["reducers/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],

@@ -4,8 +4,8 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import { isBrowserDetect } from '@libs/isBrowserDetect'
 import { defaultTheme } from '@styles/theme'
+import { isBrowserDetect } from '@utils/isBrowserDetect'
 
 /**
  * @param {object} initialState

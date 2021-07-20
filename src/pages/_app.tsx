@@ -9,8 +9,8 @@ import { ThemeProvider } from '@material-ui/styles'
 import { AppDrawer } from '@components/AppDrawer'
 import { BottomNavigation } from '@components/BottomNavigation'
 import { useApollo } from '@graphql/apolloClient'
-import { isBrowserDetect } from '@libs/isBrowserDetect'
 import { defaultTheme } from '@styles/theme'
+import { isBrowserDetect } from '@utils/isBrowserDetect'
 import firebaseConfig from '../firebase/firebaseConfig'
 
 /**

@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import matter from 'gray-matter'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
+import slug from 'rehype-slug'
 import { Box, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { CodeBlock } from '@components/blog/CodeBlock'
 import { CommentsContainer } from '@components/blog/CommentsContainer'
-import { A, Div, H1, H2, H3, H4, H5, H6, P } from '@components/blog/HtmlStyles'
+import { CustomH1, Headline } from '@components/blog/CustomH1'
+import { A, Div, H2, H3, H4, H5, H6, P } from '@components/blog/HtmlStyles'
 import { initializeApollo } from '@graphql/apolloClient'
 import {
   GetRepositoryObjectDocument,
@@ -24,20 +26,7 @@ type Props = {
   source: MDXRemoteSerializeResult<BlogMetaData>
 }
 
-type ComponentProps = Record<string, unknown>
-
-const components = {
-  code: CodeBlock,
-  a: (props: ComponentProps) => <A {...props} />,
-  div: (props: ComponentProps) => <Div {...props} />,
-  h1: (props: ComponentProps) => <H1 {...props} />,
-  h2: (props: ComponentProps) => <H2 {...props} />,
-  h3: (props: ComponentProps) => <H3 {...props} />,
-  h4: (props: ComponentProps) => <H4 {...props} />,
-  h5: (props: ComponentProps) => <H5 {...props} />,
-  h6: (props: ComponentProps) => <H6 {...props} />,
-  p: (props: ComponentProps) => <P {...props} />,
-}
+type ComponentProps<T = unknown> = Record<string, T>
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,6 +41,30 @@ const useStyles = makeStyles(() =>
 
 export default function BlogPage(props: Props) {
   const classes = useStyles()
+  const [headlines, setHeadline] = useState<Headline[]>([])
+
+  const components = useMemo(
+    () => ({
+      code: CodeBlock,
+      a: (componentProps: ComponentProps) => <A {...componentProps} />,
+      div: (componentProps: ComponentProps) => <Div {...componentProps} />,
+      h1: (componentProps: ComponentProps<string>) => (
+        <CustomH1
+          {...componentProps}
+          id={componentProps.id}
+          headlines={headlines}
+          setHeadline={setHeadline}
+        />
+      ),
+      h2: (componentProps: ComponentProps) => <H2 {...componentProps} />,
+      h3: (componentProps: ComponentProps) => <H3 {...componentProps} />,
+      h4: (componentProps: ComponentProps) => <H4 {...componentProps} />,
+      h5: (componentProps: ComponentProps) => <H5 {...componentProps} />,
+      h6: (componentProps: ComponentProps) => <H6 {...componentProps} />,
+      p: (componentProps: ComponentProps) => <P {...componentProps} />,
+    }),
+    [],
+  )
 
   return (
     <>
@@ -111,7 +124,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
   const mdxSource = await serialize(grayMatterFile.content, {
     mdxOptions: {
       remarkPlugins: [],
-      rehypePlugins: [],
+      rehypePlugins: [slug],
     },
     scope: grayMatterFile.data,
   })

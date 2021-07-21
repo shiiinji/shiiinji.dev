@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import {
   Box,
+  Container,
   List,
   ListItem,
   ListItemText,
@@ -56,52 +57,54 @@ export default function IndexPage(props: Props) {
             'このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js Commerceなどの実験場とする予定です。',
         }}
       />
-      <Box pt={3} pb={3}>
-        <Link href="/about">
-          <div className={classes.link}>
-            <Typography
-              className={classes.title}
-              variant="h4"
-              variantMapping={{ h4: 'h1' }}
-            >
-              Hello shinji-portfolio 👋
-            </Typography>
-            <Typography variant="subtitle1">
-              shiiinjiです。このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
-              Commerceなどの実験場とする予定です。
-            </Typography>
-          </div>
-        </Link>
-        <Typography variant="subtitle1">サイトのコード →</Typography>
-        <Link href="https://github.com/shiiinji/shinji-portfolio">
-          <a target="_blank" rel="noopener noreferrer">
-            <Typography color="primary">
-              https://github.com/shiiinji/shinji-portfolio
-            </Typography>
-          </a>
-        </Link>
-      </Box>
-      <List>
-        {dateDescendingOrderPosts.map((post) => (
-          <ListItem key={post.data.id} disableGutters={true}>
-            <Link href={`/blog/${post.data.id}`}>
-              <ListItemText
-                className={classes.link}
-                primary={
-                  <Typography className={classes.title} variant="h4">
-                    {post.data.title}
-                  </Typography>
-                }
-                secondary={
-                  <Typography variant="caption">
-                    {dayjs(post.data.date).format('YYYY/MM/DD')}
-                  </Typography>
-                }
-              />
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+      <Container maxWidth="md">
+        <Box pt={3} pb={3}>
+          <Link href="/about">
+            <div className={classes.link}>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                variantMapping={{ h4: 'h1' }}
+              >
+                Hello shinji-portfolio 👋
+              </Typography>
+              <Typography variant="subtitle1">
+                shiiinjiです。このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
+                Commerceなどの実験場とする予定です。
+              </Typography>
+            </div>
+          </Link>
+          <Typography variant="subtitle1">サイトのコード →</Typography>
+          <Link href="https://github.com/shiiinji/shinji-portfolio">
+            <a target="_blank" rel="noopener noreferrer">
+              <Typography color="primary">
+                https://github.com/shiiinji/shinji-portfolio
+              </Typography>
+            </a>
+          </Link>
+        </Box>
+        <List>
+          {dateDescendingOrderPosts.map((post) => (
+            <ListItem key={post.data.id} disableGutters={true}>
+              <Link href={`/blog/${post.data.id}`}>
+                <ListItemText
+                  className={classes.link}
+                  primary={
+                    <Typography className={classes.title} variant="h4">
+                      {post.data.title}
+                    </Typography>
+                  }
+                  secondary={
+                    <Typography variant="caption">
+                      {dayjs(post.data.date).format('YYYY/MM/DD')}
+                    </Typography>
+                  }
+                />
+              </Link>
+            </ListItem>
+          ))}
+        </List>
+      </Container>
     </>
   )
 }

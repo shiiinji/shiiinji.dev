@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
+import { Container } from '@material-ui/core'
 import { StaticPage } from '@components/StaticPage'
 import { initializeApollo } from '@graphql/apolloClient'
 import {
@@ -20,7 +21,9 @@ export default function TermsPage() {
           description: 'shiiinji.devの利用規約ページです。',
         }}
       />
-      <StaticPage type={StaticPageType.Terms} />
+      <Container maxWidth="md">
+        <StaticPage type={StaticPageType.Terms} />
+      </Container>
     </>
   )
 }

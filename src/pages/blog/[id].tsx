@@ -6,11 +6,12 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
 import slug from 'rehype-slug'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { CodeBlock } from '@components/blog/CodeBlock'
 import { CommentsContainer } from '@components/blog/CommentsContainer'
 import { CustomH1, Headline } from '@components/blog/CustomH1'
+import { Headlines } from '@components/blog/Headlines'
 import { A, Div, H2, H3, H4, H5, H6, P } from '@components/blog/HtmlStyles'
 import { initializeApollo } from '@graphql/apolloClient'
 import {
@@ -30,6 +31,9 @@ type ComponentProps<T = unknown> = Record<string, T>
 
 const useStyles = makeStyles(() =>
   createStyles({
+    headLineContainer: {
+      position: 'fixed',
+    },
     title: {
       fontWeight: 900,
     },
@@ -78,26 +82,42 @@ export default function BlogPage(props: Props) {
           description: props.source.scope?.description,
         }}
       />
-      <Box pt={3}>
+      <Container maxWidth="lg">
         <Box pt={3}>
-          <Typography
-            className={classes.title}
-            variant="h4"
-            variantMapping={{ h4: 'h1' }}
-          >
-            {props.source.scope?.title}
-          </Typography>
-          <Typography variant="caption">
-            {dayjs(props.source.scope?.date).format('YYYY/MM/DD')}
-          </Typography>
+          <Grid container={true}>
+            <Grid item={true} xs={12} sm={9}>
+              <Box pt={3}>
+                <Typography
+                  className={classes.title}
+                  variant="h4"
+                  variantMapping={{ h4: 'h1' }}
+                >
+                  {props.source.scope?.title}
+                </Typography>
+                <Typography variant="caption">
+                  {dayjs(props.source.scope?.date).format('YYYY/MM/DD')}
+                </Typography>
+              </Box>
+              <Box pt={3}>
+                <MDXRemote
+                  {...props.source}
+                  components={components}
+                ></MDXRemote>
+              </Box>
+              <Box pt={5} pb={5}>
+                <CommentsContainer />
+              </Box>
+            </Grid>
+            <Grid item={true} xs={12} sm={3}>
+              {headlines.length > 0 && (
+                <Box pt={5}>
+                  <Headlines headlines={headlines} />
+                </Box>
+              )}
+            </Grid>
+          </Grid>
         </Box>
-        <Box pt={3}>
-          <MDXRemote {...props.source} components={components}></MDXRemote>
-        </Box>
-        <Box pt={5} pb={5}>
-          <CommentsContainer />
-        </Box>
-      </Box>
+      </Container>
     </>
   )
 }

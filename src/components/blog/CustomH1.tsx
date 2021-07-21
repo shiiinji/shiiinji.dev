@@ -1,8 +1,16 @@
-import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react'
+import React, {
+  useRef,
+  Dispatch,
+  ReactNode,
+  RefObject,
+  SetStateAction,
+  useEffect,
+} from 'react'
 import { H1 } from './HtmlStyles'
 
 export type Headline = {
   id: string
+  ref: RefObject<HTMLDivElement>
   title: ReactNode
 }
 
@@ -11,9 +19,14 @@ export const CustomH1: React.FC<{
   headlines: Headline[]
   setHeadline: Dispatch<SetStateAction<Headline[]>>
 }> = ({ id, headlines, setHeadline, ...props }) => {
-  useEffect(() => {
-    setHeadline((prevState) => [...prevState, { id, title: props.children }])
-  }, [id, headlines, props.children, setHeadline])
+  const ref = useRef<HTMLDivElement>(null)
 
-  return <H1 {...props} />
+  useEffect(() => {
+    setHeadline((prevState) => [
+      ...prevState,
+      { id, ref, title: props.children },
+    ])
+  }, [id, headlines, props.children, setHeadline, ref])
+
+  return <H1 ref={ref} id={id} {...props} />
 }

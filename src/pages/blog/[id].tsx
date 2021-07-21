@@ -1,6 +1,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import matter from 'gray-matter'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
@@ -16,6 +17,8 @@ import {
   TreeEntry,
 } from '@services/github/client'
 import { BlogMetaData } from '@services/types'
+
+type Params = { id: string }
 
 type Props = {
   source: MDXRemoteSerializeResult<BlogMetaData>
@@ -86,7 +89,9 @@ export default function BlogPage(props: Props) {
   )
 }
 
-export async function getStaticProps(props: { params: { id: string } }) {
+export const getStaticProps: GetStaticProps<Props, Params> = async (
+  context,
+) => {
   const apolloClient = initializeApollo()
 
   const {
@@ -97,12 +102,10 @@ export async function getStaticProps(props: { params: { id: string } }) {
       owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
       name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
       expression: String(
-        `${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${props.params.id}.mdx`,
+        `${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${context.params?.id}.mdx`,
       ),
     },
   })
-
-  console.log(`${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${props.params.id}`)
 
   const grayMatterFile = matter(repository?.content?.text)
   const mdxSource = await serialize(grayMatterFile.content, {
@@ -114,12 +117,12 @@ export async function getStaticProps(props: { params: { id: string } }) {
   })
 
   return {
-    props: { source: mdxSource },
+    props: { source: mdxSource as MDXRemoteSerializeResult<BlogMetaData> },
     revalidate: 60,
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const apolloClient = initializeApollo()
 
   const {

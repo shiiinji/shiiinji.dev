@@ -66,10 +66,9 @@ export default function MyApp({
         <ThemeProvider theme={defaultTheme}>
           <ApolloProvider client={apolloClient}>
             <CssBaseline />
-            <AppDrawer>
-              <Component {...pageProps} />
-              <BottomNavigation />
-            </AppDrawer>
+            <AppDrawer />
+            <Component {...pageProps} />
+            <BottomNavigation />
           </ApolloProvider>
         </ThemeProvider>
         <React.Suspense fallback={<div />}>

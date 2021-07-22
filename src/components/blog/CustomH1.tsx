@@ -16,9 +16,8 @@ export type Headline = {
 
 export const CustomH1: React.FC<{
   id: string
-  headlines: Headline[]
   setHeadline: Dispatch<SetStateAction<Headline[]>>
-}> = ({ id, headlines, setHeadline, ...props }) => {
+}> = ({ id, setHeadline, ...props }) => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -26,7 +25,8 @@ export const CustomH1: React.FC<{
       ...prevState,
       { id, ref, title: props.children },
     ])
-  }, [id, headlines, props.children, setHeadline, ref])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return <H1 ref={ref} id={id} {...props} />
 }

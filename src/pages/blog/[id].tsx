@@ -56,7 +56,6 @@ export default function BlogPage(props: Props) {
         <CustomH1
           {...componentProps}
           id={componentProps.id}
-          headlines={headlines}
           setHeadline={setHeadline}
         />
       ),
@@ -67,6 +66,7 @@ export default function BlogPage(props: Props) {
       h6: (componentProps: ComponentProps) => <H6 {...componentProps} />,
       p: (componentProps: ComponentProps) => <P {...componentProps} />,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 

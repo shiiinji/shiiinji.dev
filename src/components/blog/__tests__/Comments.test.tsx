@@ -5,6 +5,7 @@ import 'firebase/firestore'
 import { render, screen } from '@testing-library/react'
 import { Comments } from '../Comments'
 
+/* eslint @typescript-eslint/no-var-requires: 0 */
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 const useFindComments = jest.spyOn(
   require('@hooks/useComments'),

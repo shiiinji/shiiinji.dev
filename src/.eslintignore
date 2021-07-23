@@ -9,3 +9,5 @@ services/graphcms
 .eslintrc.js
 .env.local
 jest.config.js
+coverage
+setupTests.js

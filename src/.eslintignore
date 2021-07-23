@@ -8,3 +8,4 @@ services/github
 services/graphcms
 .eslintrc.js
 .env.local
+jest.config.js

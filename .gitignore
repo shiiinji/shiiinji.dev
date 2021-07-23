@@ -6,6 +6,9 @@
 # next build files
 .next
 
+# jest coverage files
+coverage
+
 # others
 .idea
 node_modules

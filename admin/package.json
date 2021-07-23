@@ -7,6 +7,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start --port $PORT",
+    "test": "jest --config jest.config.js",
+    "test:watch": "yarn test -- --watch",
+    "test:coverage": "yarn test -- --collect-coverage",
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'; stylelint './**/*.{css,jsx,tsx}';",
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
@@ -33,6 +36,8 @@
     "styled-components": "^5.0.0-beta.9"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/styled-components": "^4.1.19",
     "@types/stylelint": "^9.10.1",
@@ -49,7 +54,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^4.10.1",
     "jest": "^27.0.6",
+    "next-page-tester": "^0.27.0",
     "prettier": "^2.3.2",
     "prettier-stylelint": "^0.4.2",
     "stylelint": "^13.8.0",
@@ -58,7 +65,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^4.1.0",
     "stylelint-processor-styled-components": "^1.10.0",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   }
 }

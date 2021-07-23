@@ -33,7 +33,21 @@ module.exports = {
     project: './tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'import', 'jest', 'prefer-arrow', 'prettier'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'jest',
+    'prefer-arrow',
+    'prettier',
+    'testing-library',
+  ],
+  overrides: [
+    {
+      // 3) Now we enable eslint-plugin-testing-library rules or preset only for matching files!
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
+  ],
   root: true,
   rules: {
     // eslint official

@@ -25,7 +25,7 @@ import firebaseConfig from '../firebase/firebaseConfig'
 function MyPageViewLogger() {
   const analytics = useAnalytics()
   const router = useRouter()
-  const { data: user } = useUser(undefined, { suspense: true })
+  const { data: user } = useUser({ suspense: true })
 
   useEffect(() => {
     if (router.asPath !== null && router.asPath !== undefined) {

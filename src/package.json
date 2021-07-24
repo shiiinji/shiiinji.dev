@@ -47,7 +47,7 @@
     "react": "^next",
     "react-dom": "^next",
     "react-firebaseui": "^5.0.2",
-    "reactfire": "3.0.0-rc.0",
+    "reactfire": "3.0.0-canary.804b3e5",
     "rehype-slug": "^4.0.1",
     "styled-components": "^5.0.0-beta.9",
     "yup": "^0.32.9"

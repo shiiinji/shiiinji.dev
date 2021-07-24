@@ -17,7 +17,7 @@ export function CommentEditor() {
   const analytics = useAnalytics()
   const [state, dispatch] = useReducer(reducer, initialState)
   const router = useRouter()
-  const { data: user } = useUser(undefined, { suspense: true })
+  const { data: user } = useUser({ suspense: true })
   const commentRef = useNewCreateRef(user.uid)
 
   const blogId = router.query.id as string

@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "removeComments": false,
     "preserveConstEnums": true,
-    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "types": ["node", "jest", "@testing-library/jest-dom", "@types/puppeteer"],
     "skipLibCheck": true,
     "strict": true,
     "pretty": true,

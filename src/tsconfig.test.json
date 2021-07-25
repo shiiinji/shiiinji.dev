@@ -1,44 +1,8 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "sourceMap": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "noErrorTruncation": true,
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "types": ["node", "jest", "@testing-library/jest-dom", "@types/puppeteer"],
-    "skipLibCheck": true,
-    "strict": true,
-    "pretty": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@containers/*": ["containers/*"],
-      "@contexts/*": ["contexts/*"],
-      "@graphql/*": ["graphql/*"],
-      "@hooks/*": ["hooks/*"],
-      "@reducers/*": ["reducers/*"],
-      "@services/*": ["services/*"],
-      "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
-    }
-  },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  }
 }

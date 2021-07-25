@@ -13,3 +13,7 @@ coverage
 .idea
 node_modules
 yarn-error.log
+
+# cypress
+src/cypress/screenshots
+src/cypress/videos

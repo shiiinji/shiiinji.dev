@@ -28,28 +28,22 @@ const comments = [
 ] as const
 
 describe('Comments.tsx', () => {
-  useRouter.mockImplementationOnce(() => ({
+  useRouter.mockImplementation(() => ({
     query: { id: 'test' },
   }))
-  useFindComments.mockImplementationOnce(() => comments)
+  useFindComments.mockImplementation(() => comments)
 
   it('コメントエリアのレンダリング', async () => {
     render(<Comments />)
 
-    expect(screen.getByText(comments[0].author)).toBeInTheDocument()
-    expect(screen.getByText(comments[0].content)).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        dayjs(comments[0].createdAt.toDate()).format('YYYY/MM/DD'),
-      ),
-    ).toBeInTheDocument()
-
-    expect(screen.getByText(comments[1].author)).toBeInTheDocument()
-    expect(screen.getByText(comments[1].content)).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        dayjs(comments[1].createdAt.toDate()).format('YYYY/MM/DD'),
-      ),
-    ).toBeInTheDocument()
+    comments.forEach((comment) => {
+      expect(screen.getByText(comment.author)).toBeInTheDocument()
+      expect(screen.getByText(comment.content)).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          dayjs(comment.createdAt.toDate()).format('YYYY/MM/DD'),
+        ),
+      ).toBeInTheDocument()
+    })
   })
 })

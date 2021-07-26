@@ -20,10 +20,12 @@ jobs:
       - name: install
         run: |
           yarn install
+      - name: eslint
+        run: yarn lint
       - name: test
         run: |
           yarn test
-      - name: Cypress run
+      - name: Cypress e2e test
         uses: cypress-io/github-action@v2
         with:
           working-directory: ./src

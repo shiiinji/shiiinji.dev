@@ -7,8 +7,6 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "now": "now",
-    "now-prod": "now --prod",
     "test": "jest --config jest.config.js",
     "test:e2e": "cypress run",
     "test:watch": "yarn test -- --watch",
@@ -18,8 +16,7 @@
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
     "codegen-github": "graphql-codegen --config github-codegen.yml",
-    "codegen-graphcms": "graphql-codegen --config graphcms-codegen.yml",
-    "security-check": "nsp check"
+    "codegen-graphcms": "graphql-codegen --config graphcms-codegen.yml"
   },
   "repository": {
     "type": "git",
@@ -49,7 +46,7 @@
     "react": "^next",
     "react-dom": "^next",
     "react-firebaseui": "^5.0.2",
-    "reactfire": "3.0.0-canary.804b3e5",
+    "reactfire": "^3.0.0-rc.3",
     "rehype-slug": "^4.0.1",
     "styled-components": "^5.0.0-beta.9",
     "yup": "^0.32.9"

@@ -9802,10 +9802,10 @@ react@^next:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-reactfire@3.0.0-canary.804b3e5:
-  version "3.0.0-canary.804b3e5"
-  resolved "https://registry.yarnpkg.com/reactfire/-/reactfire-3.0.0-canary.804b3e5.tgz#aa65370d998487ebfb37832c22cd924874aaebb2"
-  integrity sha512-RSeacKr2jXzBj4oViP4CMTtqOVYMeYtcb+Z5826pmuUpBH4McjbA5POEiYq1gpviRn5ttmTztKJPsB7Xy3rX5g==
+reactfire@^3.0.0-rc.3:
+  version "3.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/reactfire/-/reactfire-3.0.0-rc.3.tgz#9cf262a7c324745b629160173ed80b72418a2d66"
+  integrity sha512-jPrrgo8BOcl20wbEsq0n7zjSllsIEzKhU2TIx4Ct62MskWqhfyo0DeSg04zCwRWm4Ooio7vSutILlz2Nxxw4zw==
   dependencies:
     rxfire "5.0.0-rc.3"
     rxjs "^6.6.3 || ^7.0.1"

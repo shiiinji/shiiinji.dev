@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "types": ["cypress"],
+    "types": ["cypress", "cypress-firebase"],
     "isolatedModules": false
   },
   "include": ["../node_modules/cypress", "./**/*.ts"]

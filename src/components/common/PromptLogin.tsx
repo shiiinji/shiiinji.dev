@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Button, Typography } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
 type Props = {
   redirectUrl: string
@@ -15,11 +15,8 @@ export function PromptLogin(props: Props) {
   }
 
   return (
-    <>
-      <Button color="primary" onClick={handleClick} variant="contained">
-        ログイン
-      </Button>
-      <Typography color="textSecondary">{props.promptText}</Typography>
-    </>
+    <Button color="primary" onClick={handleClick} variant="contained">
+      {props.promptText}
+    </Button>
   )
 }

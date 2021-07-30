@@ -29,7 +29,6 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["components/*"],
-      "@containers/*": ["containers/*"],
       "@graphql/*": ["graphql/*"],
       "@hooks/*": ["hooks/*"],
       "@reducers/*": ["reducers/*"],

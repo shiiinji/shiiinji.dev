@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { Container } from '@material-ui/core'
 
-const Login = dynamic(import('../components/Login'), {
+const Login = dynamic(import('@components/login'), {
   ssr: false,
 })
 

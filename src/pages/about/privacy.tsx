@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { Container } from '@material-ui/core'
-import { StaticPage } from '@components/StaticPage'
+import { StaticPage } from '@components/common/StaticPage'
 import { initializeApollo } from '@graphql/apolloClient'
 import {
   GetStaticPageDocument,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppDrawer, Route } from '@components/AppDrawer'
+import { AppDrawer, Route } from '@components/common/AppDrawer'
 
 export default function IndexPage() {
   return (

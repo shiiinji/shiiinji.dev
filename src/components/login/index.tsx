@@ -10,7 +10,7 @@ type AuthResult = {
   additionalUserInfo: firebase.auth.AdditionalUserInfo
 }
 
-export default function SignInPage() {
+export default function Login() {
   const analytics = useAnalytics()
   const auth = useAuth()
   const router = useRouter()

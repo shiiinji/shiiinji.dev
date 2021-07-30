@@ -13,6 +13,10 @@ import { defaultTheme } from '@styles/theme'
 import { isBrowserDetect } from '@utils/isBrowserDetect'
 import firebaseConfig from '../firebase/firebaseConfig'
 
+import 'firebase/analytics'
+import 'firebase/auth'
+import 'firebase/firestore'
+
 /**
  * @param {object} initialState
  * @param {boolean} options.isServer indicates whether it is a server side or client side
@@ -62,7 +66,7 @@ export default function MyApp({
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <ThemeProvider theme={defaultTheme}>
           <ApolloProvider client={apolloClient}>
             <CssBaseline />

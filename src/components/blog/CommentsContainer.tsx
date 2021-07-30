@@ -1,11 +1,8 @@
 import React, { Suspense } from 'react'
-import { useRouter } from 'next/router'
-import { AuthCheck } from 'reactfire'
 import { Box, Paper, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { PromptLogin } from '@components/common/PromptLogin'
 import { SkeletonCommentView } from '@components/common/Skeleton/SkeletonCommentView'
-import { CommentEditor } from './CommentEditor'
+import { CommentEditorContainer } from './CommentEditorContainer'
 import { Comments } from './Comments'
 
 const useStyles = makeStyles(() =>
@@ -18,7 +15,6 @@ const useStyles = makeStyles(() =>
 
 export function CommentsContainer() {
   const classes = useStyles()
-  const router = useRouter()
 
   return (
     <Paper>
@@ -28,24 +24,7 @@ export function CommentsContainer() {
         </Typography>
         <Suspense fallback={<SkeletonCommentView />}>
           <Comments />
-        </Suspense>
-        <Suspense fallback={<SkeletonCommentView />}>
-          <AuthCheck
-            fallback={
-              <Suspense fallback={<SkeletonCommentView />}>
-                <Box pt={2}>
-                  <PromptLogin
-                    redirectUrl={router.asPath}
-                    promptText="ログインしてコメントする"
-                  />
-                </Box>
-              </Suspense>
-            }
-          >
-            <Suspense fallback={<SkeletonCommentView />}>
-              <CommentEditor />
-            </Suspense>
-          </AuthCheck>
+          <CommentEditorContainer />
         </Suspense>
       </Box>
     </Paper>

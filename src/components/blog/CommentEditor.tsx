@@ -1,10 +1,11 @@
 import React, { useReducer } from 'react'
 import { useFormik } from 'formik'
-import { useAnalytics, useUser } from 'reactfire'
+import { useAnalytics, useSigninCheck, useUser } from 'reactfire'
 import { useRouter } from 'next/router'
 import * as Yup from 'yup'
 import { Box, Button, TextField } from '@material-ui/core'
 import { ErrorTypography } from '@components/common/ErrorTypography'
+import { PromptLogin } from '@components/common/PromptLogin'
 import { SnackbarView } from '@components/common/Snackbar'
 import { useNewCreateRef, createComment } from '@hooks/useComment'
 import { initialState, reducer, SnackbarActionType } from '@reducers/snackbar'
@@ -17,7 +18,8 @@ export function CommentEditor() {
   const analytics = useAnalytics()
   const [state, dispatch] = useReducer(reducer, initialState)
   const router = useRouter()
-  const { data: user } = useUser({ suspense: true })
+  const { status, data: signInCheckResult } = useSigninCheck({})
+  const { data: user } = useUser()
   const commentRef = useNewCreateRef(user.uid)
 
   const blogId = router.query.id as string
@@ -53,6 +55,19 @@ export function CommentEditor() {
       }
     },
   })
+
+  if (status === 'loading') {
+    return null
+  }
+
+  if (!signInCheckResult.signedIn) {
+    return (
+      <PromptLogin
+        redirectUrl={router.asPath}
+        promptText="ログインしてコメントする"
+      />
+    )
+  }
 
   return (
     <>

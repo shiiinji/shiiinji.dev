@@ -3,12 +3,10 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FirebaseAppProvider, useAnalytics, useUser } from 'reactfire'
-import { ApolloProvider } from '@apollo/client'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import { AppDrawer } from '@components/common/AppDrawer'
 import { BottomNavigation } from '@components/common/BottomNavigation'
-import { useApollo } from '@graphql/apolloClient'
 import { defaultTheme } from '@styles/theme'
 import { isBrowserDetect } from '@utils/isBrowserDetect'
 import firebaseConfig from '../firebase/firebaseConfig'
@@ -49,7 +47,6 @@ export default function MyApp({
   pageProps,
 }: AppProps & { apolloClient: any }) {
   const router = useRouter()
-  const apolloClient = useApollo(pageProps.initialApolloState)
 
   useEffect(() => {
     if (isBrowserDetect()) {
@@ -68,12 +65,10 @@ export default function MyApp({
       </Head>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <ThemeProvider theme={defaultTheme}>
-          <ApolloProvider client={apolloClient}>
-            <CssBaseline />
-            <AppDrawer />
-            <Component {...pageProps} />
-            <BottomNavigation />
-          </ApolloProvider>
+          <CssBaseline />
+          <AppDrawer />
+          <Component {...pageProps} />
+          <BottomNavigation />
         </ThemeProvider>
         <React.Suspense fallback={<div />}>
           <MyPageViewLogger />

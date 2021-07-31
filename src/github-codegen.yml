@@ -11,7 +11,6 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-apollo
+      - typescript-urql
     config:
       withHooks: true
-      reactApolloVersion: 3

@@ -48,10 +48,5 @@ export function MDXRemote(props: MDXProps) {
     [],
   )
 
-  return (
-    <MDXRemoteComponent
-      {...props.source}
-      components={components}
-    ></MDXRemoteComponent>
-  )
+  return <MDXRemoteComponent {...props.source} components={components} />
 }

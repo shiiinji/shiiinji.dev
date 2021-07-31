@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
+import gql from 'graphql-tag'
+import * as Urql from 'urql'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -8,7 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-const defaultOptions = {}
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -21511,58 +21511,17 @@ export const GetRepositoryObjectDocument = gql`
   }
 `
 
-/**
- * __useGetRepositoryObjectQuery__
- *
- * To run a query within a React component, call `useGetRepositoryObjectQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRepositoryObjectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRepositoryObjectQuery({
- *   variables: {
- *      owner: // value for 'owner'
- *      name: // value for 'name'
- *      expression: // value for 'expression'
- *   },
- * });
- */
 export function useGetRepositoryObjectQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRepositoryObjectQuery,
-    GetRepositoryObjectQueryVariables
-  >,
+  options: Omit<
+    Urql.UseQueryArgs<GetRepositoryObjectQueryVariables>,
+    'query'
+  > = {},
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetRepositoryObjectQuery,
-    GetRepositoryObjectQueryVariables
-  >(GetRepositoryObjectDocument, options)
+  return Urql.useQuery<GetRepositoryObjectQuery>({
+    query: GetRepositoryObjectDocument,
+    ...options,
+  })
 }
-export function useGetRepositoryObjectLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRepositoryObjectQuery,
-    GetRepositoryObjectQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetRepositoryObjectQuery,
-    GetRepositoryObjectQueryVariables
-  >(GetRepositoryObjectDocument, options)
-}
-export type GetRepositoryObjectQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectQuery
->
-export type GetRepositoryObjectLazyQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectLazyQuery
->
-export type GetRepositoryObjectQueryResult = Apollo.QueryResult<
-  GetRepositoryObjectQuery,
-  GetRepositoryObjectQueryVariables
->
 export const GetRepositoryObjectNamesDocument = gql`
   query getRepositoryObjectNames(
     $owner: String!
@@ -21581,58 +21540,17 @@ export const GetRepositoryObjectNamesDocument = gql`
   }
 `
 
-/**
- * __useGetRepositoryObjectNamesQuery__
- *
- * To run a query within a React component, call `useGetRepositoryObjectNamesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRepositoryObjectNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRepositoryObjectNamesQuery({
- *   variables: {
- *      owner: // value for 'owner'
- *      name: // value for 'name'
- *      expression: // value for 'expression'
- *   },
- * });
- */
 export function useGetRepositoryObjectNamesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRepositoryObjectNamesQuery,
-    GetRepositoryObjectNamesQueryVariables
-  >,
+  options: Omit<
+    Urql.UseQueryArgs<GetRepositoryObjectNamesQueryVariables>,
+    'query'
+  > = {},
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetRepositoryObjectNamesQuery,
-    GetRepositoryObjectNamesQueryVariables
-  >(GetRepositoryObjectNamesDocument, options)
+  return Urql.useQuery<GetRepositoryObjectNamesQuery>({
+    query: GetRepositoryObjectNamesDocument,
+    ...options,
+  })
 }
-export function useGetRepositoryObjectNamesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRepositoryObjectNamesQuery,
-    GetRepositoryObjectNamesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetRepositoryObjectNamesQuery,
-    GetRepositoryObjectNamesQueryVariables
-  >(GetRepositoryObjectNamesDocument, options)
-}
-export type GetRepositoryObjectNamesQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectNamesQuery
->
-export type GetRepositoryObjectNamesLazyQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectNamesLazyQuery
->
-export type GetRepositoryObjectNamesQueryResult = Apollo.QueryResult<
-  GetRepositoryObjectNamesQuery,
-  GetRepositoryObjectNamesQueryVariables
->
 export const GetRepositoryObjectsDocument = gql`
   query getRepositoryObjects(
     $owner: String!
@@ -21655,55 +21573,14 @@ export const GetRepositoryObjectsDocument = gql`
   }
 `
 
-/**
- * __useGetRepositoryObjectsQuery__
- *
- * To run a query within a React component, call `useGetRepositoryObjectsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRepositoryObjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRepositoryObjectsQuery({
- *   variables: {
- *      owner: // value for 'owner'
- *      name: // value for 'name'
- *      expression: // value for 'expression'
- *   },
- * });
- */
 export function useGetRepositoryObjectsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRepositoryObjectsQuery,
-    GetRepositoryObjectsQueryVariables
-  >,
+  options: Omit<
+    Urql.UseQueryArgs<GetRepositoryObjectsQueryVariables>,
+    'query'
+  > = {},
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetRepositoryObjectsQuery,
-    GetRepositoryObjectsQueryVariables
-  >(GetRepositoryObjectsDocument, options)
+  return Urql.useQuery<GetRepositoryObjectsQuery>({
+    query: GetRepositoryObjectsDocument,
+    ...options,
+  })
 }
-export function useGetRepositoryObjectsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRepositoryObjectsQuery,
-    GetRepositoryObjectsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetRepositoryObjectsQuery,
-    GetRepositoryObjectsQueryVariables
-  >(GetRepositoryObjectsDocument, options)
-}
-export type GetRepositoryObjectsQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectsQuery
->
-export type GetRepositoryObjectsLazyQueryHookResult = ReturnType<
-  typeof useGetRepositoryObjectsLazyQuery
->
-export type GetRepositoryObjectsQueryResult = Apollo.QueryResult<
-  GetRepositoryObjectsQuery,
-  GetRepositoryObjectsQueryVariables
->

@@ -6,7 +6,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
 import slug from 'rehype-slug'
 import { Blog, Props } from '@components/blog'
-import { initializeApollo } from '@graphql/apolloClient'
+import { client } from '@graphql/client'
 import {
   GetRepositoryObjectDocument,
   GetRepositoryObjectNamesDocument,
@@ -37,20 +37,17 @@ export default function BlogPage(props: Props) {
 export const getStaticProps: GetStaticProps<Props, Params> = async (
   context,
 ) => {
-  const apolloClient = initializeApollo()
-
   const {
     data: { repository },
-  } = await apolloClient.query({
-    query: GetRepositoryObjectDocument,
-    variables: {
+  } = await client
+    .query(GetRepositoryObjectDocument, {
       owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
       name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
       expression: String(
         `${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}${context.params?.id}.mdx`,
       ),
-    },
-  })
+    })
+    .toPromise()
 
   const grayMatterFile = matter(repository?.content?.text)
   const mdxSource = await serialize(grayMatterFile.content, {
@@ -68,18 +65,15 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const apolloClient = initializeApollo()
-
   const {
     data: { repository },
-  } = await apolloClient.query({
-    query: GetRepositoryObjectNamesDocument,
-    variables: {
+  } = await client
+    .query(GetRepositoryObjectNamesDocument, {
       owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
       name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
       expression: String(`${process.env.NEXT_PUBLIC_GITHUB_EXPRESSION}`),
-    },
-  })
+    })
+    .toPromise()
 
   const paths = repository.content?.entries
     .map((object: Pick<TreeEntry, 'name'>) => object.name)

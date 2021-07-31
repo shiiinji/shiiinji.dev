@@ -1,9 +1,8 @@
 # github-codegen.yml
-# TODO move $YOUR_GITHUB_AUTHORIZATION to env file, refer https://www.graphql-code-generator.com/docs/getting-started/codegen-config
 schema:
   - https://api.github.com/graphql:
       headers:
-        Authorization: Bearer $YOUR_GITHUB_AUTHORIZATION
+        Authorization: Bearer ${NEXT_PUBLIC_GITHUB_TOKEN}
 documents: ./graphql/github/*.graphql
 overwrite: true
 generates:

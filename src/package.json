@@ -15,7 +15,7 @@
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'; stylelint './**/*.{css,jsx,tsx}';",
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
-    "codegen-github": "graphql-codegen --config github-codegen.yml"
+    "codegen-github": "graphql-codegen --config github-codegen.yml -r dotenv/config"
   },
   "repository": {
     "type": "git",
@@ -63,6 +63,7 @@
     "@typescript-eslint/parser": "^3.10.1",
     "cypress": "^8.0.0",
     "cypress-firebase": "^2.0.0",
+    "dotenv": "^10.0.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-next": "^11.0.1",

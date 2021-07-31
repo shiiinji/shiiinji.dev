@@ -1,20 +1,11 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import dayjs from 'dayjs'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { BlogMetaData } from '@services/types'
-import { Headlines } from './Headlines'
-import { A, Div, H2, H3, H4, H5, H6, P } from './HtmlStyles'
-import { CodeBlock } from './CodeBlock'
+import { MDXRemote, Props } from '@components/common/MDX/'
+import { Headline } from '@components/common/MDX/CustomH1'
+import { Headlines } from '@components/common/MDX/Headlines'
 import { CommentsContainer } from './CommentsContainer'
-import { CustomH1, Headline } from './CustomH1'
-
-export type Props = {
-  source: MDXRemoteSerializeResult<BlogMetaData>
-}
-
-type ComponentProps<T = unknown> = Record<string, T>
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,29 +25,6 @@ export function Blog(props: Props) {
   const classes = useStyles()
   const [headlines, setHeadline] = useState<Headline[]>([])
 
-  const components = useMemo(
-    () => ({
-      code: CodeBlock,
-      a: (componentProps: ComponentProps) => <A {...componentProps} />,
-      div: (componentProps: ComponentProps) => <Div {...componentProps} />,
-      h1: (componentProps: ComponentProps<string>) => (
-        <CustomH1
-          {...componentProps}
-          id={componentProps.id}
-          setHeadline={setHeadline}
-        />
-      ),
-      h2: (componentProps: ComponentProps) => <H2 {...componentProps} />,
-      h3: (componentProps: ComponentProps) => <H3 {...componentProps} />,
-      h4: (componentProps: ComponentProps) => <H4 {...componentProps} />,
-      h5: (componentProps: ComponentProps) => <H5 {...componentProps} />,
-      h6: (componentProps: ComponentProps) => <H6 {...componentProps} />,
-      p: (componentProps: ComponentProps) => <P {...componentProps} />,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
-
   return (
     <Container maxWidth="lg">
       <Box pt={3}>
@@ -75,7 +43,7 @@ export function Blog(props: Props) {
               </Typography>
             </Box>
             <Box pt={3}>
-              <MDXRemote {...props.source} components={components}></MDXRemote>
+              <MDXRemote source={props.source} setHeadline={setHeadline} />
             </Box>
             <Box pt={5} pb={5}>
               <CommentsContainer />

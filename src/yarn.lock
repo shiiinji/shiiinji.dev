@@ -1449,11 +1449,6 @@
     protobufjs "^6.10.0"
     yargs "^16.1.1"
 
-"@habx/apollo-multi-endpoint-link@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@habx/apollo-multi-endpoint-link/-/apollo-multi-endpoint-link-2.5.0.tgz#c4c7399b8e4a61686c0e58124a99534fcfc3900f"
-  integrity sha512-bnj/hrKdcc85DqnF9zt6k6RE6Jz9M8Ktl7A7ywQ0XoJyp7zrBQGOBAXiMhh0jVmEgmDzMDbBgzAGJx7oqQyRhw==
-
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"

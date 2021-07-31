@@ -1,14 +1,17 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
+import matter from 'gray-matter'
+import { GetStaticProps } from 'next'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import slug from 'rehype-slug'
 import { Container } from '@material-ui/core'
-import { StaticPage } from '@components/common/StaticPage'
+import { StaticPage, Props } from '@components/common/StaticPage'
 import { initializeApollo } from '@graphql/apolloClient'
-import {
-  GetStaticPageDocument,
-  StaticPageType,
-} from '@services/graphcms/client'
+import { GetRepositoryObjectDocument } from '@services/github/client'
+import { BlogMetaData } from '@services/types'
 
-export default function TermsPage() {
+export default function TermsPage(props: Props) {
   return (
     <>
       <NextSeo
@@ -22,26 +25,39 @@ export default function TermsPage() {
         }}
       />
       <Container maxWidth="md">
-        <StaticPage type={StaticPageType.Terms} />
+        <StaticPage {...props} />
       </Container>
     </>
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const apolloClient = initializeApollo()
 
-  await apolloClient.query({
-    query: GetStaticPageDocument,
+  const {
+    data: { repository },
+  } = await apolloClient.query({
+    query: GetRepositoryObjectDocument,
     variables: {
-      staticPageType: StaticPageType.Terms,
+      owner: String(process.env.NEXT_PUBLIC_GITHUB_OWNER),
+      name: String(process.env.NEXT_PUBLIC_GITHUB_NAME),
+      expression: String(
+        `${process.env.NEXT_PUBLIC_GITHUB_PAGE_EXPRESSION}terms.mdx`,
+      ),
     },
   })
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
+  const grayMatterFile = matter(repository?.content?.text)
+  const mdxSource = await serialize(grayMatterFile.content, {
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [slug],
     },
-    revalidate: 60 * 60,
+    scope: grayMatterFile.data,
+  })
+
+  return {
+    props: { source: mdxSource as MDXRemoteSerializeResult<BlogMetaData> },
+    revalidate: 60,
   }
 }

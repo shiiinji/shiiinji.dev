@@ -4135,14 +4135,14 @@ export type DiscussionCategoryEdge = {
 }
 
 /** A comment on a discussion. */
-export type DiscussionComment = Node &
-  Comment &
+export type DiscussionComment = Comment &
   Deletable &
   Minimizable &
   Updatable &
   UpdatableComment &
   Reactable &
-  Votable & {
+  Votable &
+  Node & {
     __typename?: 'DiscussionComment'
     /** The actor who authored the comment. */
     author?: Maybe<Actor>
@@ -10661,6 +10661,8 @@ export type Organization = Node &
     resourcePath: Scalars['URI']
     /** The Organization's SAML identity providers */
     samlIdentityProvider?: Maybe<OrganizationIdentityProvider>
+    /** List of sponsors for this user or organization. */
+    sponsors: SponsorConnection
     /** Events involving this sponsorable, such as new sponsorships. */
     sponsorsActivities: SponsorsActivityConnection
     /** The GitHub Sponsors listing for this user or organization. */
@@ -10859,6 +10861,16 @@ export type OrganizationRepositoryDiscussionsArgs = {
   orderBy?: Maybe<DiscussionOrder>
   repositoryId?: Maybe<Scalars['ID']>
   answered?: Maybe<Scalars['Boolean']>
+}
+
+/** An account on GitHub, with one or more owners, that has repositories, members and teams. */
+export type OrganizationSponsorsArgs = {
+  after?: Maybe<Scalars['String']>
+  before?: Maybe<Scalars['String']>
+  first?: Maybe<Scalars['Int']>
+  last?: Maybe<Scalars['Int']>
+  tierId?: Maybe<Scalars['ID']>
+  orderBy?: Maybe<SponsorOrder>
 }
 
 /** An account on GitHub, with one or more owners, that has repositories, members and teams. */
@@ -14147,6 +14159,8 @@ export type Release = Node &
     isLatest: Scalars['Boolean']
     /** Whether or not the release is a prerelease */
     isPrerelease: Scalars['Boolean']
+    /** A list of users mentioned in the release description */
+    mentions?: Maybe<UserConnection>
     /** The title of the release. */
     name?: Maybe<Scalars['String']>
     /** Identifies the date and time when the release was created. */
@@ -14176,6 +14190,14 @@ export type Release = Node &
     /** Can user react to this subject */
     viewerCanReact: Scalars['Boolean']
   }
+
+/** A release contains the content for a release. */
+export type ReleaseMentionsArgs = {
+  after?: Maybe<Scalars['String']>
+  before?: Maybe<Scalars['String']>
+  first?: Maybe<Scalars['Int']>
+  last?: Maybe<Scalars['Int']>
+}
 
 /** A release contains the content for a release. */
 export type ReleaseReactionsArgs = {
@@ -16727,7 +16749,7 @@ export type RepositoryVisibilityChangeEnableAuditEntry = Node &
     userUrl?: Maybe<Scalars['URI']>
   }
 
-/** A alert for a repository with an affected vulnerability. */
+/** A Dependabot alert for a repository with a dependency affected by a security vulnerability. */
 export type RepositoryVulnerabilityAlert = Node &
   RepositoryNode & {
     __typename?: 'RepositoryVulnerabilityAlert'
@@ -17511,6 +17533,44 @@ export type SmimeSignature = GitSignature & {
 /** Entities that can sponsor others via GitHub Sponsors */
 export type Sponsor = Organization | User
 
+/** The connection type for Sponsor. */
+export type SponsorConnection = {
+  __typename?: 'SponsorConnection'
+  /** A list of edges. */
+  edges?: Maybe<Array<Maybe<SponsorEdge>>>
+  /** A list of nodes. */
+  nodes?: Maybe<Array<Maybe<Sponsor>>>
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo
+  /** Identifies the total count of items in the connection. */
+  totalCount: Scalars['Int']
+}
+
+/** Represents a user or organization who is sponsoring someone in GitHub Sponsors. */
+export type SponsorEdge = {
+  __typename?: 'SponsorEdge'
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']
+  /** The item at the end of the edge. */
+  node?: Maybe<Sponsor>
+}
+
+/** Ordering options for connections to get sponsor entities for GitHub Sponsors. */
+export type SponsorOrder = {
+  /** The field to order sponsor entities by. */
+  field: SponsorOrderField
+  /** The ordering direction. */
+  direction: OrderDirection
+}
+
+/** Properties by which sponsor connections can be ordered. */
+export enum SponsorOrderField {
+  /** Order sponsorable entities by login (username). */
+  Login = 'LOGIN',
+  /** Order sponsors by their relevance to the viewer. */
+  Relevance = 'RELEVANCE',
+}
+
 /** Entities that can be sponsored through GitHub Sponsors */
 export type Sponsorable = {
   /** True if this user/organization has a GitHub Sponsors listing. */
@@ -17519,6 +17579,8 @@ export type Sponsorable = {
   isSponsoredBy: Scalars['Boolean']
   /** True if the viewer is sponsored by this user/organization. */
   isSponsoringViewer: Scalars['Boolean']
+  /** List of sponsors for this user or organization. */
+  sponsors: SponsorConnection
   /** Events involving this sponsorable, such as new sponsorships. */
   sponsorsActivities: SponsorsActivityConnection
   /** The GitHub Sponsors listing for this user or organization. */
@@ -17538,6 +17600,16 @@ export type Sponsorable = {
 /** Entities that can be sponsored through GitHub Sponsors */
 export type SponsorableIsSponsoredByArgs = {
   accountLogin: Scalars['String']
+}
+
+/** Entities that can be sponsored through GitHub Sponsors */
+export type SponsorableSponsorsArgs = {
+  after?: Maybe<Scalars['String']>
+  before?: Maybe<Scalars['String']>
+  first?: Maybe<Scalars['Int']>
+  last?: Maybe<Scalars['Int']>
+  tierId?: Maybe<Scalars['ID']>
+  orderBy?: Maybe<SponsorOrder>
 }
 
 /** Entities that can be sponsored through GitHub Sponsors */
@@ -17725,12 +17797,18 @@ export type SponsorsListing = Node & {
   /** The full description of the listing rendered to HTML. */
   fullDescriptionHTML: Scalars['HTML']
   id: Scalars['ID']
+  /** Whether this listing is publicly visible. */
+  isPublic: Scalars['Boolean']
   /** The listing's full name. */
   name: Scalars['String']
+  /** A future date on which this listing is eligible to receive a payout. */
+  nextPayoutDate?: Maybe<Scalars['Date']>
   /** The short description of the listing. */
   shortDescription: Scalars['String']
   /** The short name of the listing. */
   slug: Scalars['String']
+  /** The entity this listing represents who can be sponsored on GitHub Sponsors. */
+  sponsorable: Sponsorable
   /** The published tiers for this GitHub Sponsors listing. */
   tiers?: Maybe<SponsorsTierConnection>
 }
@@ -18064,8 +18142,8 @@ export type StatusCheckRollupContextEdge = {
 }
 
 /** Represents an individual commit status context */
-export type StatusContext = Node &
-  RequirableByPullRequest & {
+export type StatusContext = RequirableByPullRequest &
+  Node & {
     __typename?: 'StatusContext'
     /** The avatar of the OAuth application or the user that created the status */
     avatarUrl?: Maybe<Scalars['URI']>
@@ -20650,6 +20728,8 @@ export type User = Node &
     resourcePath: Scalars['URI']
     /** Replies this user has saved */
     savedReplies?: Maybe<SavedReplyConnection>
+    /** List of sponsors for this user or organization. */
+    sponsors: SponsorConnection
     /** Events involving this sponsorable, such as new sponsorships. */
     sponsorsActivities: SponsorsActivityConnection
     /** The GitHub Sponsors listing for this user or organization. */
@@ -20935,6 +21015,16 @@ export type UserSavedRepliesArgs = {
   first?: Maybe<Scalars['Int']>
   last?: Maybe<Scalars['Int']>
   orderBy?: Maybe<SavedReplyOrder>
+}
+
+/** A user is an individual's account on GitHub that owns repositories and can make new content. */
+export type UserSponsorsArgs = {
+  after?: Maybe<Scalars['String']>
+  before?: Maybe<Scalars['String']>
+  first?: Maybe<Scalars['Int']>
+  last?: Maybe<Scalars['Int']>
+  tierId?: Maybe<Scalars['ID']>
+  orderBy?: Maybe<SponsorOrder>
 }
 
 /** A user is an individual's account on GitHub that owns repositories and can make new content. */
@@ -21410,7 +21500,7 @@ export const GetRepositoryObjectDocument = gql`
     $owner: String!
     $name: String!
     $expression: String!
-  ) @api(name: github) {
+  ) {
     repository(owner: $owner, name: $name) {
       content: object(expression: $expression) {
         ... on Blob {
@@ -21478,7 +21568,7 @@ export const GetRepositoryObjectNamesDocument = gql`
     $owner: String!
     $name: String!
     $expression: String!
-  ) @api(name: github) {
+  ) {
     repository(owner: $owner, name: $name) {
       content: object(expression: $expression) {
         ... on Tree {
@@ -21548,7 +21638,7 @@ export const GetRepositoryObjectsDocument = gql`
     $owner: String!
     $name: String!
     $expression: String!
-  ) @api(name: github) {
+  ) {
     repository(owner: $owner, name: $name) {
       content: object(expression: $expression) {
         ... on Tree {

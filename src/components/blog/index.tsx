@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import dayjs from 'dayjs'
 import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { MDXRemote, Props } from '@components/common/MDX/'
+import { MDXRemote, MDXProps } from '@components/common/MDX/'
 import { Headline } from '@components/common/MDX/CustomH1'
 import { Headlines } from '@components/common/MDX/Headlines'
 import { CommentsContainer } from './CommentsContainer'
+
+export type Props = Pick<MDXProps, 'source'>
 
 const useStyles = makeStyles(() =>
   createStyles({

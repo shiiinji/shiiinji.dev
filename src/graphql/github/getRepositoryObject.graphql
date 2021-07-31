@@ -1,5 +1,8 @@
-query getRepositoryObject($owner: String!, $name: String!, $expression: String!)
-@api(name: github) {
+query getRepositoryObject(
+  $owner: String!
+  $name: String!
+  $expression: String!
+) {
   repository(owner: $owner, name: $name) {
     content: object(expression: $expression) {
       ... on Blob {

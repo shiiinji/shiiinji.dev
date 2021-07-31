@@ -47,6 +47,7 @@ jobs:
           NEXT_PUBLIC_GITHUB_OWNER: ${{ secrets.NEXT_PUBLIC_GITHUB_OWNER }}
           NEXT_PUBLIC_GITHUB_NAME: ${{ secrets.NEXT_PUBLIC_GITHUB_NAME }}
           NEXT_PUBLIC_GITHUB_EXPRESSION: ${{ secrets.NEXT_PUBLIC_GITHUB_EXPRESSION }}
+          NEXT_PUBLIC_GITHUB_PAGE_EXPRESSION: ${{ secrets.NEXT_PUBLIC_GITHUB_PAGE_EXPRESSION }}
       - name: Slack notification
         if: failure()
         uses: rtCamp/action-slack-notify@v2

@@ -17,14 +17,14 @@ import {
 } from '@components/common/MDX/HtmlStyles'
 import { BlogMetaData } from '@services/types'
 
-export type Props = {
+export type MDXProps = {
   setHeadline: Dispatch<SetStateAction<Headline[]>>
   source: MDXRemoteSerializeResult<BlogMetaData>
 }
 
 type ComponentProps<T = unknown> = Record<string, T>
 
-export function MDXRemote(props: Props) {
+export function MDXRemote(props: MDXProps) {
   const components = useMemo(
     () => ({
       code: CodeBlock,

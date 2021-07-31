@@ -15,8 +15,7 @@
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'; stylelint './**/*.{css,jsx,tsx}';",
     "lint:fix": "eslint --fix './**/*.{js,jsx,ts,tsx}'; stylelint --fix './**/*.{css,jsx,tsx}';",
     "prettier": "prettier --write ./*",
-    "codegen-github": "graphql-codegen --config github-codegen.yml",
-    "codegen-graphcms": "graphql-codegen --config graphcms-codegen.yml"
+    "codegen-github": "graphql-codegen --config github-codegen.yml"
   },
   "repository": {
     "type": "git",
@@ -27,7 +26,6 @@
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@apollo/react-ssr": "^4.0.0",
-    "@habx/apollo-multi-endpoint-link": "^2.5.0",
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.54",

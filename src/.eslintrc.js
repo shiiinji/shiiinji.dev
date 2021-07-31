@@ -49,6 +49,12 @@ module.exports = {
     },
   ],
   root: true,
+  // TODO Fix Parsing error: "parserOptions.project" has been set for @typescript-eslint/parser issue without ignorePatterns
+  ignorePatterns: [
+    '**/cypress/integration/*.ts',
+    '**/cypress/plugins/*.js',
+    '**/cypress/support/*.js',
+  ],
   rules: {
     // eslint official
     camelcase: 'off',

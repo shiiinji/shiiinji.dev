@@ -6,7 +6,7 @@ export async function createUser(userRecord: admin.auth.UserRecord) {
   const doc = await onUserRef(userRecord.uid)
 
   const user: User = {
-    userId: userRecord.uid,
+    id: userRecord.uid,
     email: userRecord.email as string,
     githubId: userRecord.providerData[0].uid,
     displayName: userRecord.displayName as string,

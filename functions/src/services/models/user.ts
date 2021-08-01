@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 
 export type User = {
-  userId: string
+  id: string
   email: string
   githubId: string
   displayName: string

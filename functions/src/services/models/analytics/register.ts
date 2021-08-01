@@ -6,7 +6,7 @@ export type Row = {
 }
 
 export type Register = {
-  registerId: string
+  id: string
   date: firebase.firestore.Timestamp
   registrationNumber: number
   createdAt: firebase.firestore.Timestamp

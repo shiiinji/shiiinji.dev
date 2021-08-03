@@ -160,6 +160,12 @@ module.exports = {
       // default to latest and warns if missing
       // It will default to "detect" in the future
     },
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: 'useRecoilCallback|useRecoilTransaction_UNSTABLE',
+      },
+    ],
     propWrapperFunctions: [
       // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
       'forbidExtraProps',

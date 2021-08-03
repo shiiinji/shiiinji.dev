@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
+import { RecoilRoot } from 'recoil'
 import slug from 'rehype-slug'
 import { Blog, Props } from '@components/blog'
 import { client } from '@graphql/client'
@@ -29,7 +30,9 @@ export default function BlogPage(props: Props) {
           description: props.source.scope?.description,
         }}
       />
-      <Blog {...props} />
+      <RecoilRoot>
+        <Blog {...props} />
+      </RecoilRoot>
     </>
   )
 }

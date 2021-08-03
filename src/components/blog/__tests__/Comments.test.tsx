@@ -33,7 +33,7 @@ describe('Comments.tsx', () => {
   }))
   useFindComments.mockImplementation(() => comments)
 
-  it('コメントエリアのレンダリング', async () => {
+  it('Comments renders with correct comments array', async () => {
     render(<Comments />)
 
     comments.forEach((comment) => {

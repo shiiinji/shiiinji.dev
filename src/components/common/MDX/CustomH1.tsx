@@ -1,24 +1,13 @@
-import React, {
-  useRef,
-  Dispatch,
-  ReactNode,
-  RefObject,
-  SetStateAction,
-  useEffect,
-} from 'react'
+import React, { useRef, useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { headlinesState } from '@store/atoms/headlines'
 import { H1 } from './HtmlStyles'
-
-export type Headline = {
-  id: string
-  ref: RefObject<HTMLDivElement>
-  title: ReactNode
-}
 
 export const CustomH1: React.FC<{
   id: string
-  setHeadline: Dispatch<SetStateAction<Headline[]>>
-}> = ({ id, setHeadline, ...props }) => {
+}> = ({ id, ...props }) => {
   const ref = useRef<HTMLDivElement>(null)
+  const setHeadline = useSetRecoilState(headlinesState)
 
   useEffect(() => {
     setHeadline((prevState) => [

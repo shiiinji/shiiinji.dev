@@ -33,6 +33,7 @@
       "@hooks/*": ["hooks/*"],
       "@reducers/*": ["reducers/*"],
       "@services/*": ["services/*"],
+      "@store/*": ["store/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     }

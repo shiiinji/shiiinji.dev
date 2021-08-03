@@ -13,6 +13,7 @@ module.exports = {
     '@hooks/(.*)': '<rootDir>/hooks/$1',
     '@reducers/(.*)': '<rootDir>/reducers/$1',
     '@services/(.*)': '<rootDir>/services/$1',
+    '@store/(.*)': '<rootDir>/store/$1',
     '@styles/(.*)': '<rootDir>/styles/$1',
     '@utils/(.*)': '<rootDir>/utils/$1',
   },

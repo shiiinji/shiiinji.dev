@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSigninCheck } from 'reactfire'
 import { useRouter } from 'next/router'
+import { RecoilRoot } from 'recoil'
 import { Box } from '@material-ui/core'
 import { PromptLogin } from '@components/common/PromptLogin'
 import { CommentEditor } from './CommentEditor'
@@ -24,5 +25,9 @@ export function CommentEditorContainer() {
     )
   }
 
-  return <CommentEditor />
+  return (
+    <RecoilRoot>
+      <CommentEditor />
+    </RecoilRoot>
+  )
 }

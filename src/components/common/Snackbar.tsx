@@ -1,20 +1,14 @@
 import React from 'react'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { IconButton, Snackbar } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
-import {
-  SnackbarAction,
-  SnackbarActionType,
-  SnackBarState,
-} from '@reducers/snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { snackbarState } from '@store/atoms/snackbar'
 
-type Props = {
-  state: SnackBarState
-  dispatch: React.Dispatch<SnackbarAction>
-}
-
-export function SnackbarView(props: Props) {
+export function SnackbarView() {
   const classes = useStyles()
+  const snackbar = useRecoilValue(snackbarState)
+  const resetSnackbar = useResetRecoilState(snackbarState)
 
   return (
     <Snackbar
@@ -22,19 +16,14 @@ export function SnackbarView(props: Props) {
         vertical: 'top',
         horizontal: 'center',
       }}
-      open={props.state.isOpen}
+      open={snackbar.isOpen}
       autoHideDuration={8000}
       action={
         <IconButton
           aria-label="close"
           color="inherit"
           className={classes.close}
-          onClick={() =>
-            props.dispatch({
-              type: SnackbarActionType.ACTION_CLOSE_SNACKBAR,
-              payload: { ...props.state },
-            })
-          }
+          onClick={() => resetSnackbar()}
         >
           <CloseIcon />
         </IconButton>
@@ -42,7 +31,11 @@ export function SnackbarView(props: Props) {
       ContentProps={{
         'aria-describedby': 'message-id',
       }}
-      message={<span id="message-id">{props.state.message}</span>}
+      message={
+        <span id="message-id" data-testid="message">
+          {snackbar.message}
+        </span>
+      }
     />
   )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRecoilValue } from 'recoil'
 import { Typography } from '@material-ui/core'
 import {
   Timeline,
@@ -9,11 +10,7 @@ import {
   TimelineDot,
 } from '@material-ui/lab/'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Headline } from './CustomH1'
-
-type Props = {
-  headlines: Headline[]
-}
+import { headlinesState } from '@store/atoms/headlines'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,8 +23,11 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-export function Headlines(props: Props) {
+export function Headlines() {
   const classes = useStyles()
+  const headlines = useRecoilValue(headlinesState)
+
+  if (headlines.length <= 0) return null
 
   return (
     <>
@@ -35,11 +35,11 @@ export function Headlines(props: Props) {
         目次
       </Typography>
       <Timeline>
-        {props.headlines.map((headline, index) => (
+        {headlines.map((headline, index) => (
           <TimelineItem key={headline.id}>
             <TimelineSeparator>
               <TimelineDot />
-              {index !== props.headlines.length - 1 && <TimelineConnector />}
+              {index !== headlines.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
             <TimelineContent>
               <Typography

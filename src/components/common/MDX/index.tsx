@@ -1,10 +1,10 @@
-import React, { useMemo, Dispatch, SetStateAction } from 'react'
+import React, { useMemo } from 'react'
 import {
   MDXRemote as MDXRemoteComponent,
   MDXRemoteSerializeResult,
 } from 'next-mdx-remote'
 import { CodeBlock } from '@components/common/MDX/CodeBlock'
-import { CustomH1, Headline } from '@components/common/MDX/CustomH1'
+import { CustomH1 } from '@components/common/MDX/CustomH1'
 import {
   A,
   Div,
@@ -18,7 +18,6 @@ import {
 import { BlogMetaData } from '@services/types'
 
 export type MDXProps = {
-  setHeadline: Dispatch<SetStateAction<Headline[]>>
   source: MDXRemoteSerializeResult<BlogMetaData>
 }
 
@@ -31,11 +30,7 @@ export function MDXRemote(props: MDXProps) {
       a: (componentProps: ComponentProps) => <A {...componentProps} />,
       div: (componentProps: ComponentProps) => <Div {...componentProps} />,
       h1: (componentProps: ComponentProps<string>) => (
-        <CustomH1
-          {...componentProps}
-          id={componentProps.id}
-          setHeadline={props.setHeadline}
-        />
+        <CustomH1 {...componentProps} id={componentProps.id} />
       ),
       h2: (componentProps: ComponentProps) => <H2 {...componentProps} />,
       h3: (componentProps: ComponentProps) => <H3 {...componentProps} />,
@@ -44,7 +39,6 @@ export function MDXRemote(props: MDXProps) {
       h6: (componentProps: ComponentProps) => <H6 {...componentProps} />,
       p: (componentProps: ComponentProps) => <P {...componentProps} />,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 

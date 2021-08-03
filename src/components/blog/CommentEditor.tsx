@@ -1,14 +1,14 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import { useFormik } from 'formik'
-import { useAnalytics, useSigninCheck, useUser } from 'reactfire'
+import { useAnalytics, useUser } from 'reactfire'
 import { useRouter } from 'next/router'
+import { useSetRecoilState } from 'recoil'
 import * as Yup from 'yup'
 import { Box, Button, TextField } from '@material-ui/core'
 import { ErrorTypography } from '@components/common/ErrorTypography'
-import { PromptLogin } from '@components/common/PromptLogin'
 import { SnackbarView } from '@components/common/Snackbar'
 import { useNewCreateRef, createComment } from '@hooks/useComment'
-import { initialState, reducer, SnackbarActionType } from '@reducers/snackbar'
+import { snackbarState } from '@store/atoms/snackbar'
 
 export const validationSchema = Yup.object().shape({
   content: Yup.string().max(1024).required('必須'),
@@ -16,9 +16,8 @@ export const validationSchema = Yup.object().shape({
 
 export function CommentEditor() {
   const analytics = useAnalytics()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const setSnackbar = useSetRecoilState(snackbarState)
   const router = useRouter()
-  const { status, data: signInCheckResult } = useSigninCheck({})
   const { data: user } = useUser()
   const commentRef = useNewCreateRef(user.uid)
 
@@ -37,45 +36,29 @@ export function CommentEditor() {
           blog_id: blogId,
           comment_id: commentRef.id,
         })
-        dispatch({
-          type: SnackbarActionType.ACTION_OPEN_SNACKBAR,
-          payload: {
-            ...state,
-            message: '投稿しました',
-          },
-        })
+        setSnackbar((prevState) => ({
+          ...prevState,
+          isOpen: true,
+          message: '投稿しました',
+        }))
       } catch (err) {
-        dispatch({
-          type: SnackbarActionType.ACTION_OPEN_SNACKBAR,
-          payload: {
-            ...state,
-            message: err.message,
-          },
-        })
+        setSnackbar((prevState) => ({
+          ...prevState,
+          isOpen: true,
+          message: err.message,
+        }))
       }
     },
   })
 
-  if (status === 'loading') {
-    return null
-  }
-
-  if (!signInCheckResult.signedIn) {
-    return (
-      <PromptLogin
-        redirectUrl={router.asPath}
-        promptText="ログインしてコメントする"
-      />
-    )
-  }
-
   return (
     <>
-      <SnackbarView dispatch={dispatch} state={state} />
+      <SnackbarView />
       <form onSubmit={formik.handleSubmit}>
         <TextField
           name="content"
           label="コンテンツ"
+          inputProps={{ 'data-testid': 'content-input' }}
           value={formik.values.content}
           disabled={formik.status}
           error={!!(formik.touched.content && formik.errors.content)}
@@ -94,6 +77,7 @@ export function CommentEditor() {
         <Box pt={2}>
           <Button
             color="primary"
+            data-testid="submit"
             disabled={formik.status}
             type="submit"
             variant="outlined"

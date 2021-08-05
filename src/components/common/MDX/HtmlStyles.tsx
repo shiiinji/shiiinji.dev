@@ -73,3 +73,10 @@ export const P = styled.p`
   letter-spacing: 0.00938em;
   line-height: 1.5;
 `
+export const Li = styled.li`
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.00938em;
+  line-height: 1.5;
+`

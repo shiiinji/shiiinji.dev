@@ -43,7 +43,7 @@ export function Home(props: Props) {
   return (
     <Container maxWidth="md">
       <Box pt={3} pb={3}>
-        <Link href="/about">
+        <Link href="/about/me">
           <div className={classes.link}>
             <Typography
               className={classes.title}

@@ -9,7 +9,7 @@ export default function HomePage(props: Props) {
   return (
     <>
       <NextSeo
-        title="shiiinjiののブログ&ポートフォリオサイトです。"
+        title="shiiinjiのブログ&ポートフォリオサイトです。"
         description="このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
               Commerceなどの実験場とする予定です。"
         canonical="https://shiiinji-dev.vercel.app/"

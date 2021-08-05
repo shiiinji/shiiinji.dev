@@ -13,6 +13,7 @@ import {
   H4,
   H5,
   H6,
+  Li,
   P,
 } from '@components/common/MDX/HtmlStyles'
 import { BlogMetaData } from '@services/types'
@@ -38,6 +39,7 @@ export function MDXRemote(props: MDXProps) {
       h5: (componentProps: ComponentProps) => <H5 {...componentProps} />,
       h6: (componentProps: ComponentProps) => <H6 {...componentProps} />,
       p: (componentProps: ComponentProps) => <P {...componentProps} />,
+      li: (componentProps: ComponentProps) => <Li {...componentProps} />,
     }),
     [],
   )

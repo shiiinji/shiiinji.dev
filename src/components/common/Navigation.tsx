@@ -29,7 +29,7 @@ export function Navigation(props: Props) {
       value={router.pathname}
     >
       <BottomNavigationAction icon={<Home />} label="ホーム" value="/" />
-      <BottomNavigationAction icon={<Web />} label="About" value="/about" />
+      <BottomNavigationAction icon={<Web />} label="About" value="/about/me" />
 
       <BottomNavigationAction
         icon={<Person />}

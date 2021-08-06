@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FirebaseAppProvider, useAnalytics, useUser } from 'reactfire'
+import { RecoilRoot } from 'recoil'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import { AppDrawer } from '@components/common/AppDrawer'
@@ -64,12 +65,14 @@ export default function MyApp({
         />
       </Head>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <ThemeProvider theme={defaultTheme}>
-          <CssBaseline />
-          <AppDrawer />
-          <Component {...pageProps} />
-          <BottomNavigation />
-        </ThemeProvider>
+        <RecoilRoot>
+          <ThemeProvider theme={defaultTheme}>
+            <CssBaseline />
+            <AppDrawer />
+            <Component {...pageProps} />
+            <BottomNavigation />
+          </ThemeProvider>
+        </RecoilRoot>
         <React.Suspense fallback={<div />}>
           <MyPageViewLogger />
         </React.Suspense>

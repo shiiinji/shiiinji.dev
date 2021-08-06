@@ -43,7 +43,7 @@ export function Blog(props: Props) {
               </Typography>
             </Box>
             <Box pt={3}>
-              <MDXRemote source={props.source} />
+              <MDXRemote source={props.source} isHeadLine={true} />
             </Box>
             <Box pt={5} pb={5}>
               <CommentsContainer />

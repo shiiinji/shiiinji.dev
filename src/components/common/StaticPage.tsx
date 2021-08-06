@@ -7,7 +7,7 @@ export type Props = Pick<MDXProps, 'source'>
 export const StaticPage: React.FC<Props> = (props) => {
   return (
     <Box pt={3} pb={5}>
-      <MDXRemote source={props.source} />
+      <MDXRemote source={props.source} isHeadLine={false} />
     </Box>
   )
 }

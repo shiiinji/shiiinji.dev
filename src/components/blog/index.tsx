@@ -1,6 +1,6 @@
 import React from 'react'
 import dayjs from 'dayjs'
-import { Box, Container, Grid, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Hidden, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { MDXRemote, MDXProps } from '@components/common/MDX/'
 import { Headlines } from '@components/common/MDX/Headlines'
@@ -45,15 +45,17 @@ export function Blog(props: Props) {
             <Box pt={3}>
               <MDXRemote source={props.source} isHeadLine={true} />
             </Box>
-            <Box pt={5} pb={5}>
+            <Box pt={5} pb={7}>
               <CommentsContainer />
             </Box>
           </Grid>
-          <Grid item={true} xs={12} sm={3}>
-            <Box pt={5}>
-              <Headlines />
-            </Box>
-          </Grid>
+          <Hidden xsDown={true}>
+            <Grid item={true} xs={12} sm={3}>
+              <Box pt={5}>
+                <Headlines />
+              </Box>
+            </Grid>
+          </Hidden>
         </Grid>
       </Box>
     </Container>

@@ -3,6 +3,6 @@ describe('/', () => {
     cy.visit('/')
   })
   it('ページタイトル', () => {
-    cy.title().should('eq', 'shiiinjiののブログ&ポートフォリオサイトです。')
+    cy.title().should('eq', 'shiiinjiのブログ&ポートフォリオサイトです。')
   })
 })

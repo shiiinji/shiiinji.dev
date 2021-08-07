@@ -15,6 +15,6 @@ node_modules
 yarn-error.log
 
 # cypress
+src/cypress.env.json
 src/cypress/screenshots
 src/cypress/videos
-src/cypress/serviceAccount.json

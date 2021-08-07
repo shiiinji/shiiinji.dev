@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { Button } from '@material-ui/core'
 
 type Props = {
@@ -7,16 +7,14 @@ type Props = {
   promptText: string
 }
 
-export function PromptLogin(props: Props) {
-  const router = useRouter()
-
-  const handleClick = () => {
-    router.push(`/login?redirectUrl=${props.redirectUrl}`)
-  }
-
-  return (
-    <Button color="primary" onClick={handleClick} variant="contained">
+export const PromptLogin: React.VFC<Props> = (props) => (
+  <Link href={`/login?redirectUrl=${props.redirectUrl}`}>
+    <Button
+      color="primary"
+      data-testid="prompt-login-button"
+      variant="contained"
+    >
       {props.promptText}
     </Button>
-  )
-}
+  </Link>
+)

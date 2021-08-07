@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Typography } from '@material-ui/core'
 import {
@@ -27,35 +27,46 @@ export function Headlines() {
   const classes = useStyles()
   const headlines = useRecoilValue(headlinesState)
 
-  if (headlines.length <= 0) return null
+  const onClickScrollIntoView = React.useCallback(
+    (ref: RefObject<HTMLDivElement> | null) => {
+      if (ref && ref?.current) {
+        ref.current?.scrollIntoView({
+          behavior: 'smooth',
+        })
+      }
+    },
+    [],
+  )
 
   return (
     <>
-      <Typography align="center" variant="h6">
-        目次
-      </Typography>
-      <Timeline>
-        {headlines.map((headline, index) => (
-          <TimelineItem key={headline.id}>
-            <TimelineSeparator>
-              <TimelineDot />
-              {index !== headlines.length - 1 && <TimelineConnector />}
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography
-                className={classes.text}
-                onClick={() => {
-                  headline.ref.current?.scrollIntoView({
-                    behavior: 'smooth',
-                  })
-                }}
-              >
-                {String(headline.title)}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
+      {headlines.length > 0 && (
+        <>
+          <Typography align="center" variant="h6">
+            目次
+          </Typography>
+          <Timeline>
+            {headlines.map((headline, index) => (
+              <TimelineItem key={headline.id}>
+                <TimelineSeparator>
+                  <TimelineDot />
+                  {index !== headlines.length - 1 && <TimelineConnector />}
+                </TimelineSeparator>
+                <TimelineContent>
+                  <Typography
+                    className={classes.text}
+                    onClick={() => {
+                      onClickScrollIntoView(headline.ref)
+                    }}
+                  >
+                    {String(headline.title)}
+                  </Typography>
+                </TimelineContent>
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </>
+      )}
     </>
   )
 }

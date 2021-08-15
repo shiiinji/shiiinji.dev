@@ -12,9 +12,9 @@ export default function HomePage(props: Props) {
         title="shiiinjiのブログ&ポートフォリオサイトです。"
         description="このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js
               Commerceなどの実験場とする予定です。"
-        canonical="https://shiiinji-dev.vercel.app/"
+        canonical="https://shiiinji.dev/"
         openGraph={{
-          url: 'https://shiiinji-dev.vercel.app/',
+          url: 'https://shiiinji.dev/',
           title: 'shiiinjiののブログ&ポートフォリオサイトです。',
           description:
             'このサイトはポートフォリオ兼ブログとして開発しております。普段から使っているReact/Next.js/Material-UI/Firebase/GraphQLをベースにしながらも、MDXやNext.js Commerceなどの実験場とする予定です。',

@@ -23,9 +23,9 @@ export default function BlogPage(props: Props) {
       <NextSeo
         title={props.source.scope?.title}
         description={props.source.scope?.description}
-        canonical={`https://shiiinji-dev.vercel.app/blog/${props.source.scope?.id}`}
+        canonical={`https://shiiinji.dev/blog/${props.source.scope?.id}`}
         openGraph={{
-          url: `https://shiiinji-dev.vercel.app/blog/${props.source.scope?.id}`,
+          url: `https://shiiinji.dev/blog/${props.source.scope?.id}`,
           title: props.source.scope?.title,
           description: props.source.scope?.description,
         }}

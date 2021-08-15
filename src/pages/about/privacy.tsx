@@ -17,9 +17,9 @@ export default function PrivacyPolicyPage(props: Props) {
       <NextSeo
         title="プライバシーポリシー | shiiinji.dev"
         description="shiiinji.devのプライバシーポリシーページです。"
-        canonical="https://shiiinji-dev.vercel.app/about/privacy"
+        canonical="https://shiiinji.dev/about/privacy"
         openGraph={{
-          url: 'https://shiiinji-dev.vercel.app/about/privacy',
+          url: 'https://shiiinji.dev/about/privacy',
           title: 'プライバシーポリシー | shiiinji.dev',
           description: 'shiiinji.devのプライバシーポリシーページです。',
         }}

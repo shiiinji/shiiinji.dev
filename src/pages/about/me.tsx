@@ -17,9 +17,9 @@ export default function AboutMePage(props: Props) {
       <NextSeo
         title="shiiinjiの自己紹介ページ | shiiinji.dev"
         description="shiiinji.devのshiiinjiの自己紹介ページです。"
-        canonical="https://shiiinji-dev.vercel.app/about/me"
+        canonical="https://shiiinji.dev/about/me"
         openGraph={{
-          url: 'https://shiiinji-dev.vercel.app/about/me',
+          url: 'https://shiiinji.dev/about/me',
           title: 'shiiinjiの自己紹介ページ | shiiinji.dev',
           description: 'shiiinji.devのshiiinjiの自己紹介ページです。',
         }}

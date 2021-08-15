@@ -17,9 +17,9 @@ export default function TermsPage(props: Props) {
       <NextSeo
         title="利用規約 | shiiinji.dev"
         description="shiiinji.devの利用規約ページです。"
-        canonical="https://shiiinji-dev.vercel.app/about/terms"
+        canonical="https://shiiinji.dev/about/terms"
         openGraph={{
-          url: 'https://shiiinji-dev.vercel.app/about/terms',
+          url: 'https://shiiinji.dev/about/terms',
           title: '利用規約 | shiiinji.dev',
           description: 'shiiinji.devの利用規約ページです。',
         }}

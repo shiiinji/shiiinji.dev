@@ -13,9 +13,9 @@ export default function LoginPage() {
       <NextSeo
         title="ログインページ | shiiinji.dev"
         description="shiiinji.devのログインページです。"
-        canonical="https://shiiinji-dev.vercel.app/login"
+        canonical="https://shiiinji.dev/login"
         openGraph={{
-          url: 'https://shiiinji-dev.vercel.app/login',
+          url: 'https://shiiinji.dev/login',
           title: 'ログインページ | shiiinji.dev',
           description: 'shiiinji.devのログインページです。',
         }}

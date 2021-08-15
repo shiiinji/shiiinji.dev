@@ -20,12 +20,8 @@ describe('Comments.tsx', () => {
     query: { id: 'test' },
   }))
 
-  it('SnackbarView should open after submit a comment correctly', async () => {
-    render(
-      <RecoilRoot>
-        <CommentEditor />
-      </RecoilRoot>,
-    )
+  it('should open after submit a comment correctly', async () => {
+    render(<CommentEditor />, { wrapper: RecoilRoot })
 
     const element = screen.queryByRole('alert')
     expect(element).toBeNull()
@@ -35,6 +31,6 @@ describe('Comments.tsx', () => {
     })
     fireEvent.click(screen.getByTestId('submit'))
     await screen.findByRole('alert')
-    expect(screen.getByRole('alert', {})).toBeInTheDocument()
+    expect(screen.getByRole('alert')).toBeInTheDocument()
   })
 })

@@ -34,7 +34,7 @@ export function Navigation(props: Props) {
       <BottomNavigationAction
         icon={<Person />}
         label="マイページ"
-        value="/mypage"
+        value="/mypage/comments"
       />
       <BottomNavigationAction
         icon={<GitHub />}

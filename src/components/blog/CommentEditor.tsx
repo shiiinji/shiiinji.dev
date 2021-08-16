@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import { Box, Button, TextField } from '@material-ui/core'
 import { ErrorTypography } from '@components/common/ErrorTypography'
 import { SnackbarView } from '@components/common/Snackbar'
-import { useNewCreateRef, createComment } from '@hooks/useComment'
+import { useNewCreateRef, createComment } from '@hooks/useUserComment'
 import { snackbarState } from '@store/atoms/snackbar'
 
 export const validationSchema = Yup.object().shape({

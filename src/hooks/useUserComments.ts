@@ -13,9 +13,9 @@ export const useFindUserComments = (
   ref: firebase.firestore.CollectionReference,
 ) => {
   const query = ref.orderBy('updatedAt', 'desc')
-  const { data: comments } = useFirestoreCollectionData<Comment>(query, {
-    suspense: true,
+  const { data, error, status } = useFirestoreCollectionData<Comment>(query, {
+    suspense: false,
   })
 
-  return comments
+  return { data, error, status }
 }

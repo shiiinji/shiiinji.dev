@@ -8,7 +8,7 @@ import { CommentEditor } from './CommentEditor'
 
 export function CommentEditorContainer() {
   const router = useRouter()
-  const { status, data: signInCheckResult } = useSigninCheck({})
+  const { status, data: signInCheckResult } = useSigninCheck()
 
   if (status === 'loading') {
     return null

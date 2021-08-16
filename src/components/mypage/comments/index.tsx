@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { Box, Container, Grid } from '@material-ui/core'
 import { CommentsView } from './CommentsView'
 import { VerticalTabs } from '../common/VerticalTabs'
@@ -11,9 +11,7 @@ export const MyPageComments = () => (
           <VerticalTabs />
         </Grid>
         <Grid item={true} xs={12} sm={8} md={9}>
-          <Suspense fallback={<div />}>
-            <CommentsView />
-          </Suspense>
+          <CommentsView />
         </Grid>
       </Grid>
     </Box>

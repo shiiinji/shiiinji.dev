@@ -30,7 +30,7 @@ export function CommentsTable(props: Props) {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table data-testid="comments-table">
         <TableHead>
           <TableRow>
             <TableCell />

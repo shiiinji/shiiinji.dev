@@ -8,6 +8,10 @@ import {
   Theme,
 } from '@material-ui/core/styles'
 
+const a11yProps = (name: 'comments') => ({
+  'aria-controls': `mypage-tabpanel-${name}`,
+})
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -48,11 +52,13 @@ export function VerticalTabs() {
         indicatorColor="primary"
         textColor="primary"
         className={isMobile ? '' : classes.tabs}
+        aria-label="mypage-tabs"
       >
         <Tab
           className={classes.title}
           label="Comments"
           value="/mypage/comments"
+          {...a11yProps('comments')}
         />
       </Tabs>
     </div>

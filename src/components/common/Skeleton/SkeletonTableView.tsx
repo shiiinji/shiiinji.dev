@@ -14,7 +14,7 @@ export function SkeletonTableView() {
   const classes = useStyles()
 
   return (
-    <>
+    <div data-testid="skeleton-table-view">
       {[...new Array(10)].map((_row, index) => (
         <Skeleton
           key={index}
@@ -24,6 +24,6 @@ export function SkeletonTableView() {
           width="100%"
         />
       ))}
-    </>
+    </div>
   )
 }

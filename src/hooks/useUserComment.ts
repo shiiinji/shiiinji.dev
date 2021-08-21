@@ -42,3 +42,17 @@ export async function createComment(
       firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
   })
 }
+
+export async function deleteComment(ref: firebase.firestore.DocumentReference) {
+  await ref.delete()
+}
+
+export async function updateComment(
+  content: string,
+  ref: firebase.firestore.DocumentReference,
+) {
+  await ref.update({
+    content,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+  })
+}

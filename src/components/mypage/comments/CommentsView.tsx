@@ -1,17 +1,17 @@
 import React from 'react'
-import { useSigninCheck } from 'reactfire'
-import { useRouter } from 'next/router'
-import { RecoilRoot } from 'recoil'
 import { Box } from '@material-ui/core'
+import { useRouter } from 'next/router'
+import { useSigninCheck } from 'reactfire'
 import { PromptLogin } from '@components/common/PromptLogin'
-import { CommentEditor } from './CommentEditor'
+import { SkeletonTableView } from '@components/common/Skeleton/SkeletonTableView'
+import { CommentsTable } from './CommentsTable'
 
-export function CommentEditorContainer() {
+export function CommentsView() {
   const router = useRouter()
   const { status, data: signInCheckResult } = useSigninCheck()
 
   if (status === 'loading') {
-    return null
+    return <SkeletonTableView />
   }
 
   if (!signInCheckResult.signedIn) {
@@ -19,15 +19,11 @@ export function CommentEditorContainer() {
       <Box pl={2}>
         <PromptLogin
           redirectUrl={router.asPath}
-          promptText="ログインしてコメントする"
+          promptText="ログインしてマイページ機能を試す"
         />
       </Box>
     )
   }
 
-  return (
-    <RecoilRoot>
-      <CommentEditor />
-    </RecoilRoot>
-  )
+  return <CommentsTable userId={signInCheckResult.user?.uid} />
 }

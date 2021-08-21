@@ -13,19 +13,41 @@ service cloud.firestore {
                     && validateString(incomingData().content, 1, 1024)
                     && validateTimestamp(incomingData().createdAt)
                     && validateTimestamp(incomingData().updatedAt)
+      allow update: if isUserAuthenticated(uid)
+                    && isNotChanged([
+                         'blogId',
+                         'commentId',
+                         'commentRef',
+                         'userId',
+                         'userRef',
+                         'author',
+                         'createdAt'
+
+                      ])
+                      && validateString(incomingData().content, 1, 1024)
+                      && validateTimestamp(incomingData().updatedAt)
+      allow delete: if isUserAuthenticated(uid)
     }
-    
+
     match /{path=**}/comments/{comment_id} {
       allow read: if true;
     }
-    
+
     match /{document=**} {
       allow read, write: if false;
     }
-    
+
     // --------------------
     // helper functions
-    
+
+    function dataDiff() {
+      return incomingData().diff(existingData());
+    }
+
+    function existingData() {
+      return resource.data;
+    }
+
     function isAuthenticated() {
       return request.auth != null
     }
@@ -33,6 +55,11 @@ service cloud.firestore {
     function isUserAuthenticated(uid) {
       return isAuthenticated()
         && request.auth.uid == uid;
+    }
+
+    function isNotChanged(keys) {
+      let affectedKeys = dataDiff().affectedKeys();
+      return !affectedKeys.hasAny(keys.toSet());
     }
     
     function incomingData() {

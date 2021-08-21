@@ -7,7 +7,7 @@ jest.mock('reactfire', () => ({
   useAnalytics: jest.fn(),
   useUser: () => ({ data: {} }),
 }))
-jest.mock('@hooks/useComment', () => ({
+jest.mock('@hooks/useUserComment', () => ({
   createComment: jest.fn(),
   useNewCreateRef: jest.fn(),
 }))

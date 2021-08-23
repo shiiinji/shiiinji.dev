@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { Provider } from 'urql'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
+import { client } from '@graphql/client'
 import { defaultTheme } from '@styles/theme'
 import { isBrowserDetect } from '@utils/isBrowserDetect'
 
@@ -38,8 +40,10 @@ export default function MyApp({
         />
       </Head>
       <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Provider value={client}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Provider>
       </ThemeProvider>
     </>
   )

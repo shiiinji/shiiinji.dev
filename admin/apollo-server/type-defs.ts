@@ -1,26 +1,26 @@
 import { gql } from 'apollo-server-micro'
 
 export const typeDefs = gql`
-  scalar Timestamp
+  scalar JSONObject
 
   type RegisterStatDateSeries {
     id: ID!
-    date: Timestamp!
-    registrationNumber: Int!
-    createdAt: Timestamp!
-    updatedAt: Timestamp!
+    date: JSONObject
+    registrationNumber: Int
+    createdAt: JSONObject
+    updatedAt: JSONObject
   }
 
   type User {
     id: ID!
-    email: String!
-    githubId: String!
-    displayName: String!
-    photoUrl: String!
-    creationTime: Timestamp!
-    lastSignInTime: Timestamp!
-    createdAt: Timestamp!
-    updatedAt: Timestamp!
+    email: String
+    githubId: String
+    displayName: String
+    photoUrl: String
+    creationTime: String
+    lastSignInTime: String
+    createdAt: JSONObject
+    updatedAt: JSONObject
   }
 
   type Query {

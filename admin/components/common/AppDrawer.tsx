@@ -18,7 +18,7 @@ import { Dashboard, Settings, Storage, Stop } from '@material-ui/icons'
 
 export const Route = {
   dashboard: 'dashboard',
-  register: 'register',
+  analyticsUsers: 'analyticsUsers',
   settings: 'settings',
 } as const
 
@@ -99,16 +99,16 @@ export const AppDrawer: React.FC<Props> = (props) => {
             <ListItemText primary="分析" />
           </ListItem>
           <Collapse in={true}>
-            <Link href="/analytics/register">
+            <Link href="/analytics/users">
               <ListItem
                 button={true}
                 className={classes.nested}
-                selected={props.route === Route.register}
+                selected={props.route === Route.analyticsUsers}
               >
                 <ListItemIcon>
                   <Stop />
                 </ListItemIcon>
-                <ListItemText primary="ユーザー登録日" />
+                <ListItemText primary="ユーザー" />
               </ListItem>
             </Link>
           </Collapse>

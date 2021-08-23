@@ -1,0 +1,11 @@
+query getUsers {
+  users {
+    id
+    githubId
+    email
+    displayName
+    photoUrl
+    creationTime
+    lastSignInTime
+  }
+}

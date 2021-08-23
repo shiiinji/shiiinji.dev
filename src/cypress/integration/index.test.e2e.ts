@@ -10,16 +10,12 @@ describe('/', () => {
   })
 
   it('Page transition, / → /blog/[id] → /login', () => {
-    cy.location('pathname').should((pathname) => expect(pathname).to.equal('/'))
+    cy.url().should('include', '/')
     cy.get('ul li:first').click()
     cy.wait(1000)
-    cy.location('pathname').should((pathname) =>
-      expect(pathname).to.match(/blog/),
-    )
+    cy.url().should('include', '/blog')
     cy.wait(1000)
     cy.get('[data-testid="prompt-login-button"]').click()
-    cy.location('pathname').should((pathname) =>
-      expect(pathname).to.equal('/login'),
-    )
+    cy.url().should('include', '/login')
   })
 })

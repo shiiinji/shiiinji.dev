@@ -1,0 +1,13 @@
+# codegen.yml
+schema:
+  - http://localhost:3000/api/graphql
+documents: ./graphql/api/*.graphql
+overwrite: true
+generates:
+  ./services/api/client.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-urql
+    config:
+      withHooks: true

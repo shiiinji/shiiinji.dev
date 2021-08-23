@@ -28,6 +28,7 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["components/*"],
+      "@graphql/*": ["graphql/*"],
       "@hooks/*": ["hooks/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],

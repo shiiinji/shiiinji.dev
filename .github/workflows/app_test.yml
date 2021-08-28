@@ -56,6 +56,11 @@ jobs:
           CYPRESS_GITHUB_API_PATH: ${{ secrets.NEXT_PUBLIC_GITHUB_API_PATH }}
           CYPRESS_TEST_UID: ${{ secrets.CYPRESS_TEST_UID }}
           SERVICE_ACCOUNT: ${{ secrets.CYPRESS_SERVICE_ACCOUNT }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: Slack notification
         if: failure()
         uses: rtCamp/action-slack-notify@v2

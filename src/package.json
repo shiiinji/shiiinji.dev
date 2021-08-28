@@ -29,6 +29,7 @@
     "@material-ui/lab": "^4.0.0-alpha.54",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.10.0",
+    "@sentry/nextjs": "^6.11.0",
     "dayjs": "^1.10.6",
     "firebase": "^8.7.1",
     "formik": "^2.2.9",

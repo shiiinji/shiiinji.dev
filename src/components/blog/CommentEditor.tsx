@@ -1,6 +1,8 @@
 import React from 'react'
+import { logEvent } from 'firebase/analytics'
+import { User } from 'firebase/auth'
 import { useFormik } from 'formik'
-import { useAnalytics, useUser } from 'reactfire'
+import { useAnalytics } from 'reactfire'
 import { useRouter } from 'next/router'
 import { useSetRecoilState } from 'recoil'
 import * as Yup from 'yup'
@@ -10,16 +12,19 @@ import { SnackbarView } from '@components/common/Snackbar'
 import { useNewCreateRef, createComment } from '@hooks/useUserComment'
 import { snackbarState } from '@store/atoms/snackbar'
 
+type Props = {
+  user: User
+}
+
 export const validationSchema = Yup.object().shape({
   content: Yup.string().max(1024).required('必須'),
 })
 
-export function CommentEditor() {
+export function CommentEditor(props: Props) {
   const analytics = useAnalytics()
   const setSnackbar = useSetRecoilState(snackbarState)
   const router = useRouter()
-  const { data: user } = useUser()
-  const commentRef = useNewCreateRef(user.uid)
+  const [firestore, commentRef] = useNewCreateRef(props.user.uid)
 
   const blogId = router.query.id as string
 
@@ -31,8 +36,14 @@ export function CommentEditor() {
     onSubmit: async (values) => {
       try {
         formik.setStatus(true)
-        await createComment(values.content, commentRef, user, blogId)
-        analytics.logEvent('add_comment', {
+        await createComment(
+          firestore,
+          values.content,
+          commentRef,
+          props.user,
+          blogId,
+        )
+        logEvent(analytics, 'add_comment', {
           blog_id: blogId,
           comment_id: commentRef.id,
         })

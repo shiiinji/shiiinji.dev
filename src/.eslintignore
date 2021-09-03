@@ -11,3 +11,5 @@ jest.config.js
 coverage
 setupTests.js
 cypress
+sentry.client.config.js
+sentry.server.config.js

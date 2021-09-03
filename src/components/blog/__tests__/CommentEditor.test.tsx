@@ -9,7 +9,8 @@ jest.mock('reactfire', () => ({
 }))
 jest.mock('@hooks/useUserComment', () => ({
   createComment: jest.fn(),
-  useNewCreateRef: jest.fn(),
+  /* eslint no-sparse-arrays: 0 */
+  useNewCreateRef: jest.fn(() => [,]),
 }))
 
 /* eslint @typescript-eslint/no-var-requires: 0 */
@@ -21,7 +22,9 @@ describe('Comments.tsx', () => {
   }))
 
   it('should open after submit a comment correctly', async () => {
-    render(<CommentEditor />, { wrapper: RecoilRoot })
+    render(<CommentEditor user={{ user: { uid: 1 } } as any} />, {
+      wrapper: RecoilRoot,
+    })
 
     const element = screen.queryByRole('alert')
     expect(element).toBeNull()

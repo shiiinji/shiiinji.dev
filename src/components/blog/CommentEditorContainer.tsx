@@ -27,7 +27,7 @@ export function CommentEditorContainer() {
 
   return (
     <RecoilRoot>
-      <CommentEditor />
+      <CommentEditor user={signInCheckResult.user} />
     </RecoilRoot>
   )
 }

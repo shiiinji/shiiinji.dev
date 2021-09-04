@@ -1,4 +1,5 @@
 import React from 'react'
+import { logEvent } from 'firebase/analytics'
 import { useFormik } from 'formik'
 import { useAnalytics } from 'reactfire'
 import { useSetRecoilState } from 'recoil'
@@ -41,7 +42,7 @@ export function CommentEditDialog(props: Props) {
       try {
         await updateComment(values.content, props.comment.commentRef)
 
-        analytics.logEvent('comment_edit', {
+        logEvent(analytics, 'comment_edit', {
           user_id: props.comment.userId,
           comment_id: props.comment.commentId,
           blog_id: props.comment.blogId,

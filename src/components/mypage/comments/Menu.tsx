@@ -1,4 +1,5 @@
 import React from 'react'
+import { logEvent } from 'firebase/analytics'
 import { useAnalytics } from 'reactfire'
 import { useSetRecoilState } from 'recoil'
 import { IconButton, Menu as MuiMenu, MenuItem } from '@material-ui/core'
@@ -34,7 +35,7 @@ export function Menu(props: Props) {
   const onDeleteComment = async () => {
     try {
       await deleteComment(props.comment.commentRef)
-      analytics.logEvent('comment_delete', {
+      logEvent(analytics, 'comment_delete', {
         user_id: props.comment.userId,
         comment_id: props.comment.commentId,
         blog_id: props.comment.blogId,

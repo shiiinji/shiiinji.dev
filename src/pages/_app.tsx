@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { AppProps } from 'next/app'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { FirebaseAppProvider, useAnalytics, useUser } from 'reactfire'
+import { FirebaseAppProvider } from 'reactfire'
 import { RecoilRoot } from 'recoil'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
@@ -12,9 +13,14 @@ import { defaultTheme } from '@styles/theme'
 import { isBrowserDetect } from '@utils/isBrowserDetect'
 import firebaseConfig from '../firebase/firebaseConfig'
 
-import 'firebase/analytics'
-import 'firebase/auth'
-import 'firebase/firestore'
+const DynamicFirebaseAppIndividualProviders = dynamic(
+  () => import('../components/common/FirebaseAppIndividualProviders'),
+  { ssr: false },
+)
+const DynamicMyPageViewLogger = dynamic(
+  () => import('../components/common/MyPageViewLogger'),
+  { ssr: false },
+)
 
 /**
  * @param {object} initialState
@@ -24,24 +30,6 @@ import 'firebase/firestore'
  * @param {boolean} options.debug AdminUser-defined debug mode param
  * @param {string} options.storeKey This key will be used to preserve store in global namespace for safe HMR
  */
-
-function MyPageViewLogger() {
-  const analytics = useAnalytics()
-  const router = useRouter()
-  const { data: user } = useUser({ suspense: true })
-
-  useEffect(() => {
-    if (router.asPath !== null && router.asPath !== undefined) {
-      if (user) {
-        analytics.setUserId(user.uid, { global: true })
-      }
-      analytics.logEvent('page_view', { page_path: router.asPath })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath])
-
-  return null
-}
 
 export default function MyApp({
   Component,
@@ -65,17 +53,19 @@ export default function MyApp({
         />
       </Head>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <RecoilRoot>
-          <ThemeProvider theme={defaultTheme}>
-            <CssBaseline />
-            <AppDrawer />
-            <Component {...pageProps} />
-            <BottomNavigation />
-          </ThemeProvider>
-        </RecoilRoot>
-        <React.Suspense fallback={<div />}>
-          <MyPageViewLogger />
-        </React.Suspense>
+        <DynamicFirebaseAppIndividualProviders>
+          <RecoilRoot>
+            <ThemeProvider theme={defaultTheme}>
+              <CssBaseline />
+              <AppDrawer />
+              <Component {...pageProps} />
+              <BottomNavigation />
+            </ThemeProvider>
+          </RecoilRoot>
+          <Suspense fallback={<div />}>
+            <DynamicMyPageViewLogger />
+          </Suspense>
+        </DynamicFirebaseAppIndividualProviders>
       </FirebaseAppProvider>
     </>
   )

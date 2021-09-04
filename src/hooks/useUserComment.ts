@@ -1,58 +1,66 @@
-import firebase from 'firebase/app'
+import { User } from 'firebase/auth'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  DocumentReference,
+  Firestore,
+} from 'firebase/firestore'
 import { useFirestore } from 'reactfire'
 import { rootCollectionName, subCollectionName } from '@services/constants'
 import { Comment } from '@services/models/comment'
 
-export const useNewCreateRef = (userId: string) =>
-  useFirestore()
-    .collection(rootCollectionName.users)
-    .doc(userId)
-    .collection(subCollectionName.comments)
-    .doc() as firebase.firestore.DocumentReference<Comment>
+export const useNewCreateRef = (userId: string | undefined) => {
+  const firestore = useFirestore()
+
+  return [
+    firestore,
+    doc(
+      collection(
+        firestore,
+        `${rootCollectionName.users}/${userId}/${subCollectionName.comments}`,
+      ),
+    ) as DocumentReference<Comment>,
+  ] as const
+}
 
 export async function createComment(
+  firestore: Firestore,
   content: string,
-  ref: firebase.firestore.DocumentReference<Comment>,
-  user: firebase.User,
+  ref: DocumentReference<Comment>,
+  user: User,
   blogId: string,
 ) {
   const comment: Omit<Comment, 'createdAt' | 'updatedAt'> = {
     blogId,
     content,
     commentId: ref.id,
-    commentRef: firebase
-      .firestore()
-      .collection(rootCollectionName.users)
-      .doc(user.uid)
-      .collection(subCollectionName.comments)
-      .doc(ref.id),
+    commentRef: doc(
+      firestore,
+      `${rootCollectionName.users}/${user.uid}/${subCollectionName.comments}/${ref.id}`,
+    ) as DocumentReference<Comment>,
     userId: user.uid,
-    userRef: firebase
-      .firestore()
-      .collection(rootCollectionName.users)
-      .doc(user.uid),
+    userRef: doc(firestore, `${rootCollectionName.users}/${user.uid}`),
     author: user.displayName as string,
   }
 
-  await ref.set({
+  await setDoc(ref, {
     ...comment,
-    createdAt:
-      firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
-    updatedAt:
-      firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   })
 }
 
-export async function deleteComment(ref: firebase.firestore.DocumentReference) {
-  await ref.delete()
-}
+export const deleteComment = (ref: DocumentReference<Comment>) => deleteDoc(ref)
 
-export async function updateComment(
+export const updateComment = (
   content: string,
-  ref: firebase.firestore.DocumentReference,
-) {
-  await ref.update({
+  ref: DocumentReference<Comment>,
+) =>
+  updateDoc(ref, {
     content,
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: serverTimestamp(),
   })
-}

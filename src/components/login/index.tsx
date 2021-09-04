@@ -1,13 +1,14 @@
 import React from 'react'
-import firebase from 'firebase/app'
+import { logEvent } from 'firebase/analytics'
+import { AdditionalUserInfo, GithubAuthProvider, User } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { useAuth, useAnalytics } from 'reactfire'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import StyledFirebaseAuth from 'tmp-fork-react-firebaseui-v0.600.0/StyledFirebaseAuth'
 import { Box } from '@material-ui/core'
 
 type AuthResult = {
-  user: firebase.User
-  additionalUserInfo: firebase.auth.AdditionalUserInfo
+  user: User
+  additionalUserInfo: AdditionalUserInfo
 }
 
 export default function Login() {
@@ -21,19 +22,15 @@ export default function Login() {
     signInFlow: 'redirect',
     signInOptions: [
       {
-        provider: useAuth.GithubAuthProvider.PROVIDER_ID,
+        provider: GithubAuthProvider.PROVIDER_ID,
       },
     ],
     callbacks: {
       signInSuccessWithAuthResult: (result: AuthResult) => {
         if (result.additionalUserInfo.isNewUser === true) {
-          analytics.logEvent('sign_up', {
-            method: result.additionalUserInfo.providerId,
-          })
+          logEvent(analytics, 'sign_up')
         } else {
-          analytics.logEvent('login', {
-            method: result.additionalUserInfo.providerId,
-          })
+          logEvent(analytics, 'login')
         }
 
         router.push(redirectUrl)

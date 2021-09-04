@@ -1,11 +1,15 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useFindComments } from '@hooks/useComments'
+import {
+  useCreateCollectionGroupRef,
+  useFindComments,
+} from '@hooks/useComments'
 import { Comment } from './Comment'
 
 export function Comments() {
   const router = useRouter()
-  const comments = useFindComments(router.query.id as string)
+  const [, commentsQueryRef] = useCreateCollectionGroupRef()
+  const comments = useFindComments(commentsQueryRef, router.query.id as string)
 
   return (
     <>

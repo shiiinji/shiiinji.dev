@@ -1,13 +1,13 @@
-import firebase from 'firebase/app'
+import { DocumentReference, Timestamp } from 'firebase/firestore'
 
 export type Comment = {
   blogId: string
   commentId: string
-  commentRef: firebase.firestore.DocumentReference
+  commentRef: DocumentReference<Comment>
   userId: string
-  userRef: firebase.firestore.DocumentReference
+  userRef: DocumentReference
   author: string
   content: string
-  createdAt: firebase.firestore.Timestamp
-  updatedAt: firebase.firestore.Timestamp
+  createdAt: Timestamp
+  updatedAt: Timestamp
 }

@@ -17,5 +17,5 @@ export const CustomH1: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <H1 ref={ref} id={id} {...props} />
+  return <H1 id={id} ref={ref} {...props} />
 }

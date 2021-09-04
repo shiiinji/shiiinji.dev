@@ -1,21 +1,31 @@
-import firebase from 'firebase/app'
+import {
+  collection,
+  orderBy,
+  query,
+  CollectionReference,
+} from 'firebase/firestore'
 import { useFirestore, useFirestoreCollectionData } from 'reactfire'
 import { rootCollectionName, subCollectionName } from '@services/constants'
 import { Comment } from '@services/models/comment'
 
-export const useCollectionRef = (userId: string) =>
-  useFirestore()
-    .collection(rootCollectionName.users)
-    .doc(userId)
-    .collection(subCollectionName.comments)
+export const useCollectionRef = (userId: string) => {
+  const firestore = useFirestore()
 
-export const useFindUserComments = (
-  ref: firebase.firestore.CollectionReference,
-) => {
-  const query = ref.orderBy('updatedAt', 'desc')
-  const { data, error, status } = useFirestoreCollectionData<Comment>(query, {
-    suspense: false,
-  })
+  return collection(
+    firestore,
+    `${rootCollectionName.users}/${userId}/${subCollectionName.comments}`,
+  ) as CollectionReference<Comment>
+}
+
+export const useFindUserComments = (ref: CollectionReference<Comment>) => {
+  const userCommentsQuery = query(ref, orderBy('updatedAt', 'desc'))
+
+  const { data, error, status } = useFirestoreCollectionData<Comment>(
+    userCommentsQuery,
+    {
+      suspense: false,
+    },
+  )
 
   return { data, error, status }
 }

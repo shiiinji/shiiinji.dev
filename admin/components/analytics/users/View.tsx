@@ -2,6 +2,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import {
+  Avatar,
   Box,
   Container,
   Paper,
@@ -17,6 +18,8 @@ import { useGetUsersQuery } from '@services/api/client'
 export function View() {
   const [{ data }] = useGetUsersQuery()
 
+  console.log(data)
+
   return (
     <Container>
       <Box mt={5} pt={2} pb={2}>
@@ -25,6 +28,7 @@ export function View() {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell></TableCell>
                   <TableCell>メールアドレス</TableCell>
                   <TableCell>ディスプレイ名</TableCell>
                   <TableCell>作成日</TableCell>
@@ -35,6 +39,12 @@ export function View() {
                 {Array.isArray(data?.users) &&
                   data?.users.map((user) => (
                     <TableRow key={user?.id}>
+                      <TableCell>
+                        <Avatar
+                          alt={user?.displayName || ''}
+                          src={user?.photoUrl || ''}
+                        />
+                      </TableCell>
                       <TableCell>{user?.email}</TableCell>
                       <TableCell>{user?.displayName}</TableCell>
                       <TableCell>

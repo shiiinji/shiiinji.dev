@@ -30,8 +30,10 @@
       "@components/*": ["components/*"],
       "@graphql/*": ["graphql/*"],
       "@hooks/*": ["hooks/*"],
+      "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
+      "@test-utils/*": ["test-utils/*"],
       "@utils/*": ["utils/*"]
     },
     "lib": ["DOM", "ES2015", "ES2016", "ES2017", "ESNext"]

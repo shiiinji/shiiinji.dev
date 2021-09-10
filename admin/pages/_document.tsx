@@ -7,13 +7,13 @@ class MyDocument extends Document {
   static getInitialProps = async (ctx: any) => {
     // Resolution order
     //
-    // On the server:
+    // On the api-mock-server:
     // 1. page.getInitialProps
     // 2. document.getInitialProps
     // 3. page.render
     // 4. document.render
     //
-    // On the server with error:
+    // On the api-mock-server with error:
     // 2. document.getInitialProps
     // 3. page.render
     // 4. document.render

@@ -18,8 +18,6 @@ import { useGetUsersQuery } from '@services/api/client'
 export function View() {
   const [{ data }] = useGetUsersQuery()
 
-  console.log(data)
-
   return (
     <Container>
       <Box mt={5} pt={2} pb={2}>

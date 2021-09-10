@@ -1,7 +1,7 @@
 import { createClient } from 'urql'
 
 export const client = createClient({
-  url: '/api/graphql',
+  url: 'http://localhost:8080/api/graphql',
   suspense: true,
   requestPolicy: 'cache-first',
 })

@@ -18,6 +18,16 @@ export const handlers = [
               creationTime: '2021-07-15T12:59:25Z',
               lastSignInTime: '2021-07-15T12:59:25Z',
             },
+            {
+              __typename: 'User',
+              id: 'n5GnT6rnVaeQD6UzA6tga8lmgsN3',
+              githubId: '1259487',
+              email: 'shinji.toys+2@gmail.com',
+              displayName: 'shiiinji+2',
+              photoUrl: 'https://avatars.githubusercontent.com/u/1259487?v=4',
+              creationTime: '2021-07-16T12:59:25Z',
+              lastSignInTime: '2021-07-16T12:59:25Z',
+            },
           ],
         }),
       )

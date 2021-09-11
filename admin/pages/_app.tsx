@@ -18,6 +18,13 @@ import { isBrowserDetect } from '@utils/isBrowserDetect'
  * @param {string} options.storeKey This key will be used to preserve store in global namespace for safe HMR
  */
 
+if (process.env.NEXT_PUBLIC_API_MOCKING) {
+  // @ts-ignore
+  const MockServer = () => import('@test/api-mock-server')
+
+  MockServer()
+}
+
 export default function MyApp({
   Component,
   pageProps,

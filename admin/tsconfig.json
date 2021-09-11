@@ -33,6 +33,7 @@
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
+      "@test/*": ["test/*"],
       "@test-utils/*": ["test-utils/*"],
       "@utils/*": ["utils/*"]
     },

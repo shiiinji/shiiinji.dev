@@ -1,0 +1,35 @@
+name: Admin Test
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  code_testing:
+    runs-on: ubuntu-latest
+    environment: Production
+    defaults:
+      run:
+        working-directory: ./admin
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: install
+        run: |
+          yarn install
+      - name: eslint
+        run: yarn lint
+      - name: test
+        run: |
+          yarn test
+        env:
+          NEXT_PUBLIC_API_MOCKING: ${{ secrets.NEXT_PUBLIC_API_MOCKING }}
+      - name: Slack notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: danger
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

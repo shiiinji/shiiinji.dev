@@ -1,6 +1,9 @@
 import '@testing-library/jest-dom/extend-expect'
+import dotenv from 'dotenv'
 import fetch from 'node-fetch'
 import { server } from './test/api-mock-server/server'
+
+dotenv.config({ path: '.env' })
 
 if (!globalThis.fetch) {
   globalThis.fetch = fetch

@@ -27,6 +27,7 @@ jobs:
           yarn test
         env:
           NEXT_PUBLIC_API_MOCKING: ${{ secrets.NEXT_PUBLIC_API_MOCKING }}
+          NEXT_PUBLIC_GRAPHQL_CLIENT: ${{ secrets.NEXT_PUBLIC_GRAPHQL_CLIENT }}
       - name: Slack notification
         if: failure()
         uses: rtCamp/action-slack-notify@v2

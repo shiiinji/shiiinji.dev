@@ -5,7 +5,27 @@ import { client } from '@graphql/client'
 import AnalyticsUsers from '@pages/analytics/users'
 
 describe('/analytics/users/index.test.tsx', () => {
-  it('/analytics/users/index.tsxのレンダリング', async () => {
+  it('render: loading', async () => {
+    const { asFragment } = render(
+      <Provider value={client}>
+        <AnalyticsUsers />
+      </Provider>,
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+  it('renders: analytics-users snapshot', async () => {
+    const { asFragment } = render(
+      <Provider value={client}>
+        <AnalyticsUsers />
+      </Provider>,
+    )
+
+    // TODO Improve Waiting Suspense Rendering
+    await new Promise((r) => setTimeout(r, 2000))
+
+    expect(asFragment()).toMatchSnapshot()
+  })
+  it('renders: analytics-users', async () => {
     render(
       <Provider value={client}>
         <AnalyticsUsers />
